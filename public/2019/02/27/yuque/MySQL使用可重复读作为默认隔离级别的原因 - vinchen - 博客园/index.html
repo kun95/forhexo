@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>MySQL使用可重复读作为默认隔离级别的原因 - vinchen - 博客园 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一般的DBMS系统，默认都会使用读提交（Read-Comitted，RC）作为默认隔离级别，如Oracle、SQL Server等，而MySQL却使用可重复读（Read-Repeatable，RR）。要知道，越高的隔离级别，能解决的数据一致性问题越多，理论上性能损耗更大，可并发性越低。隔离级别依次为 SERIALIZABLE &amp;gt; RR &amp;gt; RC &amp;gt; Read-Uncommited">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL使用可重复读作为默认隔离级别的原因 - vinchen - 博客园">
+<meta property="og:url" content="http://yoursite.com/2019/02/27/yuque/MySQL使用可重复读作为默认隔离级别的原因 - vinchen - 博客园/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一般的DBMS系统，默认都会使用读提交（Read-Comitted，RC）作为默认隔离级别，如Oracle、SQL Server等，而MySQL却使用可重复读（Read-Repeatable，RR）。要知道，越高的隔离级别，能解决的数据一致性问题越多，理论上性能损耗更大，可并发性越低。隔离级别依次为 SERIALIZABLE &amp;gt; RR &amp;gt; RC &amp;gt; Read-Uncommited">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-06-25T04:51:16.206Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MySQL使用可重复读作为默认隔离级别的原因 - vinchen - 博客园">
+<meta name="twitter:description" content="一般的DBMS系统，默认都会使用读提交（Read-Comitted，RC）作为默认隔离级别，如Oracle、SQL Server等，而MySQL却使用可重复读（Read-Repeatable，RR）。要知道，越高的隔离级别，能解决的数据一致性问题越多，理论上性能损耗更大，可并发性越低。隔离级别依次为 SERIALIZABLE &amp;gt; RR &amp;gt; RC &amp;gt; Read-Uncommited">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-yuque/MySQL使用可重复读作为默认隔离级别的原因 - vinchen - 博客园" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/27/yuque/MySQL使用可重复读作为默认隔离级别的原因 - vinchen - 博客园/" class="article-date">
+  <time datetime="2019-02-27T06:05:18.000Z" itemprop="datePublished">2019-02-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      MySQL使用可重复读作为默认隔离级别的原因 - vinchen - 博客园
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一般的DBMS系统，默认都会使用读提交（Read-Comitted，RC）作为默认隔离级别，如Oracle、SQL Server等，而MySQL却使用可重复读（Read-Repeatable，RR）。要知道，越高的隔离级别，能解决的数据一致性问题越多，理论上性能损耗更大，可并发性越低。隔离级别依次为</p>
+<p>SERIALIZABLE &gt; RR &gt; RC &gt; Read-Uncommited</p>
+<p>在SQL标准中，前三种隔离级别分别解决了幻象读、不可重复读和脏读的问题。那么，为什么MySQL使用可重复读作为默认隔离级别呢？</p>
+<p>Binlog是MySQL的逻辑操作日志，广泛应用于复制和恢复。MySQL 5.1以前，Statement是Binlog的默认格式，即依次记录系统接受的SQL请求；5.1及以后，MySQL提供了Row和Mixed两个Binlog格式。</p>
+<p>从MySQL 5.1开始，如果打开语句级Binlog，就不支持RC和Read-Uncommited隔离级别。要想使用RC隔离级别，必须使用Mixed或Row格式。</p>
+<p>mysql&gt; set tx_isolation=’read-committed’;</p>
+<p>Query OK, 0 rows affected (0.00 sec)</p>
+<p>mysql&gt; insert into t1 values(1,1);</p>
+<p>ERROR 1598 (HY000): Binary logging not possible. Message: Transaction level ‘READ-COMMITTED’ in InnoDB is not safe for binlog mode ‘STATEMENT’</p>
+<p>那么，为什么RC隔离级别不支持语句级Binlog呢？我们关闭binlog，做以下测试。</p>
+<p>会话1</p>
+<p>会话2</p>
+<p>use test;</p>
+<p>#初始化数据</p>
+<p>create table t1(c1 int, c2 int) engine=innodb;</p>
+<p>create table t2(c1 int, c2 int) engine=innodb;</p>
+<p>insert into t1 values(1,1), (2,2);</p>
+<p>insert into t2 values(1,1), (2,2);</p>
+<p>#设置隔离级别</p>
+<p>set tx_isolation=’read-committed’;</p>
+<p>Query OK, 0 rows affected (0.00 sec)</p>
+<p>#连续更新两次</p>
+<p>mysql&gt; Begin;</p>
+<p>Query OK, 0 rows affected (0.03 sec)</p>
+<p>mysql&gt; update t2 set c2 = 3 where c1 in (select c1 from t1);</p>
+<p>Query OK, 2 rows affected (0.00 sec)</p>
+<p>Rows matched: 2  Changed: 2  Warnings: 0</p>
+<p>mysql&gt; update t2 set c2 = 4 where c1 in (select c1 from t1);</p>
+<p>Query OK, 1 row affected (0.00 sec)</p>
+<p>Rows matched: 1  Changed: 1  Warnings: 0</p>
+<p>mysql&gt; select * from t2;</p>
+<p>+——+——+</p>
+<p>| c1   | c2   |</p>
+<p>+——+——+</p>
+<p>|    1 |    4 |</p>
+<p>|    2 |    3 |</p>
+<p>+——+——+</p>
+<p>2 rows in set (0.00 sec)</p>
+<p>mysql&gt; commit;</p>
+<p>#设置隔离级别</p>
+<p>set tx_isolation=’read-committed’;</p>
+<p>Query OK, 0 rows affected (0.00 sec)</p>
+<p>#两次更新之间执行删除</p>
+<p>mysql&gt; delete from t1 where c1 = 2;</p>
+<p>Query OK, 1 row affected (0.03 sec)</p>
+<p>由以上测试知，RC隔离级别下，会话2执行时序在会话1事务的语句之间，并且会话2的操作影响了会话1的结果，这会对Binlog结果造成影响。</p>
+<p>由于Binlog中语句的顺序以commit为序，如果语句级Binlog允许，两会话的执行时序是</p>
+<p>#会话2</p>
+<p>set tx_isolation=’read-committed’;</p>
+<p>delete from t1 where c1 = 2;</p>
+<p>commit;</p>
+<p>#会话1</p>
+<p>set tx_isolation=’read-committed’;</p>
+<p>Begin;</p>
+<p>update t2 set c2 = 3 where c1 in (select c1 from t1);</p>
+<p>update t2 set c2 = 4 where c1 in (select c1 from t1);</p>
+<p>select * from t2;</p>
+<p>+——+——+</p>
+<p>| c1   | c2   |</p>
+<p>+——+——+</p>
+<p>|    1 |    4 |</p>
+<p>|    2 |    2 |</p>
+<p>+——+——+</p>
+<p>2 rows in set (0.00 sec)</p>
+<p>commit;</p>
+<p>由上可知，在MySQL 5.1及以上的RC隔离级别下，语句级Binlog在DR上执行的结果是不正确的！</p>
+<p>那么，MySQL 5.0呢？5.0允许RC下语句级Binlog，是不是说很容易产生DB/DR不一致呢？</p>
+<p>事实上，在5.0重复上述一个测试，并不存在这个问题，原因是5.0的RC与5.1的RR使用类似的并发和上锁机制，也就是说，MySQL 5.0的RC与5.1及以上的RC可能存在兼容性问题。</p>
+<p>下面看看RR是怎么解决这个问题的。</p>
+<p>导致RC隔离级别DB/DR不一致的原因是：RC不可重复读，而Binlog要求SQL串行化！</p>
+<p>在RR下，重复以上测试</p>
+<p>会话1</p>
+<p>会话2</p>
+<p>use test;</p>
+<p>#初始化数据</p>
+<p>create table t1(c1 int, c2 int) engine=innodb;</p>
+<p>create table t2(c1 int, c2 int) engine=innodb;</p>
+<p>insert into t1 values(1,1), (2,2);</p>
+<p>insert into t2 values(1,1), (2,2);</p>
+<p>#设置隔离级别</p>
+<p>set tx_isolation=’repeatable-read’;</p>
+<p>Query OK, 0 rows affected (0.00 sec)</p>
+<p>#连续更新两次</p>
+<p>mysql&gt; Begin;</p>
+<p>Query OK, 0 rows affected (0.03 sec)</p>
+<p>mysql&gt; update t2 set c2 = 3 where c1 in (select c1 from t1);</p>
+<p>Query OK, 2 rows affected (0.00 sec)</p>
+<p>Rows matched: 2  Changed: 2  Warnings: 0</p>
+<p>mysql&gt; update t2 set c2 = 4 where c1 in (select c1 from t1);</p>
+<p>Query OK, 2 rows affected (0.00 sec)</p>
+<p>Rows matched: 2  Changed: 2  Warnings: 0</p>
+<p>mysql&gt; select * from t2;</p>
+<p>+——+——+</p>
+<p>| c1   | c2   |</p>
+<p>+——+——+</p>
+<p>|    1 |    4 |</p>
+<p>|    2 |    4 |</p>
+<p>+——+——+</p>
+<p>2 rows in set (0.00 sec)</p>
+<p>mysql&gt; commit;</p>
+<p>#设置隔离级别</p>
+<p>set tx_isolation=’ repeatable-read’;</p>
+<p>Query OK, 0 rows affected (0.00 sec)</p>
+<p>#两次更新之间执行删除</p>
+<p>mysql&gt; delete from t1 where c1 = 2;</p>
+<p>–阻塞，直到会话1提交</p>
+<p>Query OK, 1 row affected (18.94 sec)</p>
+<p>与RC隔离级别不同的是，在RR中，由于保证可重复读，会话2的delete语句会被会话1阻塞，直到会话1提交。</p>
+<p>在RR中，会话1语句update t2 set c2 = 3 where c1 in (select c1 from t1)会先在t1的记录上S锁（5.1的RC中不会上这个锁，但5.0的RC会），接着在t2的满足条件的记录上X锁。由于会话1没提交，会话2的delete语句需要等待会话1的S锁释放，于是阻塞。</p>
+<p>因此，在RR中，以上测试会话1、会话2的依次执行，与Binlog的顺序一致，从而保证DB/DR一致。</p>
+<p><a name="d5zrtw"></a></p>
+<h2 id="幻象读"><a href="#幻象读" class="headerlink" title="幻象读"></a><a href="#d5zrtw"></a>幻象读</h2><p>除了保证可重复读，MySQL的RR还一定程度上避免了幻象读（幻象读是由于插入导致的新记录）。（为什么说一定程度呢？参考第3节可重复读和串行化的区别。）</p>
+<p>会话1</p>
+<p>会话2</p>
+<p>use test;</p>
+<p>#初始化数据</p>
+<p>create table t1(c1 int primary key, c2 int) engine=innodb;</p>
+<p>create table t2(c1 int primary key, c2 int) engine=innodb;</p>
+<p>insert into t1 values(1,1), (10,10);</p>
+<p>insert into t2 values(1,1), (5,5), (10,10);</p>
+<p>#设置隔离级别</p>
+<p>set tx_isolation=’repeatable-read’;</p>
+<p>Query OK, 0 rows affected (0.00 sec)</p>
+<p>#连续更新两次</p>
+<p>mysql&gt; Begin;</p>
+<p>Query OK, 0 rows affected (0.03 sec)</p>
+<p>mysql&gt; update t2 set c2 = 20 where c1 in (select c1 from t1);</p>
+<p>Query OK, 2 rows affected (0.00 sec)</p>
+<p>Rows matched: 2  Changed: 2  Warnings: 0</p>
+<p>mysql&gt; delete from where c1 in (select c1 from t1);</p>
+<p>Query OK, 2 rows affected (0.00 sec)</p>
+<p>Rows matched: 2  Changed: 2  Warnings: 0</p>
+<p>mysql&gt; select * from t2;</p>
+<p>+——+——+</p>
+<p>| c1   | c2   |</p>
+<p>+——+——+</p>
+<p>|    5 |    5 |</p>
+<p>+——+——+</p>
+<p>2 rows in set (0.00 sec)</p>
+<p>mysql&gt; commit;</p>
+<p>#设置隔离级别</p>
+<p>set tx_isolation=’ repeatable-read’;</p>
+<p>Query OK, 0 rows affected (0.00 sec)</p>
+<p>#两次更新之间执行插入</p>
+<p>mysql&gt; insert into t1 values(5,5);</p>
+<p>–阻塞，直到会话1提交</p>
+<p>Query OK, 1 row affected (18.94 sec)</p>
+<p>由上述例子知，会话2的插入操作被阻塞了，原因是RR隔离级别中，除了记录锁外，还会上间隙锁(gap锁)。例如，对于表t1，update t2 set c2 = 20 where c1 in (select c1 from t1)以上的锁包括：</p>
+<p>(-∞, 1), 1, (1, 10), 10, (10, +∞)</p>
+<p>由于对t1做全表扫描，因此，所有记录和间隙都要上锁，其中(x,y)表示间隙锁，数字表示记录锁，全部都是S锁。会话2的insert操作插入5，位于间隙(1,10)，需要获得这个间隙的X锁，因此两操作互斥，会话2阻塞。</p>
+<p>SQL标准的RR并不要求避免幻象读，而InnoDB通过gap锁来避免幻象，从而实现SQL的可串行化，保证Binlog的一致性。</p>
+<p>要想取消gap lock，可使用参数<a href="#sysvar_innodb_locks_unsafe_for_binlog">innodb_lock_unsafe_for_binlog</a>=1，默认为0。</p>
+<p>InnoDB的RR可以避免不可重复读和幻象读，那么与串行化有什么区别呢？</p>
+<p>会话1</p>
+<p>会话2</p>
+<p>use test;</p>
+<p>#初始化数据</p>
+<p>create table t3(c1 int primary key, c2 int) engine=innodb;</p>
+<p>#设置隔离级别</p>
+<p>set tx_isolation=’repeatable-read’;</p>
+<p>Query OK, 0 rows affected (0.00 sec)</p>
+<p>mysql&gt; Begin;</p>
+<p>Query OK, 0 rows affected (0.03 sec)</p>
+<p>mysql&gt; select * from t3 where c1 = 1;</p>
+<p>Empty set (0.00 sec)</p>
+<p>mysql&gt; select * from t3 where c1 = 1;</p>
+<p>Empty set (0.00 sec)</p>
+<p>mysql&gt; update t3 set c2 =2 where c1 = 1;</p>
+<p>Query OK, 1 row affected (0.00 sec)</p>
+<p>Rows matched: 1  Changed: 1  Warnings: 0</p>
+<p>mysql&gt; select * from t3 where c1 = 1;</p>
+<p>+—-+——+</p>
+<p>| c1 | c2   |</p>
+<p>+—-+——+</p>
+<p>|  1 |    2 |</p>
+<p>+—-+——+</p>
+<p>1 row in set (0.00 sec)</p>
+<p>mysql&gt; commit;</p>
+<p>#设置隔离级别</p>
+<p>set tx_isolation=’ repeatable-read’;</p>
+<p>Query OK, 0 rows affected (0.00 sec)</p>
+<p>mysql&gt; insert into t3 values(1,1);</p>
+<p>Query OK, 1 row affected (0.05 sec)</p>
+<p>由上述会话1中，连续两次读不到数据，但更新却成功，并且更新后的相同读操作就能读到数据了，这算不算幻读呢？</p>
+<p>其实，RR隔离级别的防止幻象主要是针对写操作的，即只保证写操作的可串行化，因为只有写操作影响Binlog；而读操作是通过MVCC来保证一致性读（无幻象）。</p>
+<p>然而，可串行化隔离级别要求读写可串行化。使用可串行化重做以上测试。</p>
+<p>会话1</p>
+<p>会话2</p>
+<p>use test;</p>
+<p>#初始化数据</p>
+<p>create table t3(c1 int primary key, c2 int) engine=innodb;</p>
+<p>#设置隔离级别</p>
+<p>set tx_isolation=’SERIALIZABLE’;</p>
+<p>Query OK, 0 rows affected (0.00 sec)</p>
+<p>mysql&gt; Begin;</p>
+<p>Query OK, 0 rows affected (0.03 sec)</p>
+<p>mysql&gt; select * from t3 where c1 = 1;</p>
+<p>Empty set (0.00 sec)</p>
+<p>mysql&gt; select * from t3 where c1 = 1;</p>
+<p>Empty set (0.00 sec)</p>
+<p>mysql&gt; update t3 set c2 =2 where c1 = 1;</p>
+<p>Query OK, 0 rows affected (0.00 sec)</p>
+<p>Rows matched: 0  Changed: 0  Warnings: 0</p>
+<p>mysql&gt; select * from t3 where c1 = 1;</p>
+<p>Empty set (0.00 sec)</p>
+<p>mysql&gt; commit;</p>
+<p>#设置隔离级别</p>
+<p>set tx_isolation=’SERIALIZABLE’;</p>
+<p>Query OK, 0 rows affected (0.00 sec)</p>
+<p>mysql&gt; insert into t3 values(1,1);</p>
+<p>#阻塞，直到会话1提交</p>
+<p>Query OK, 1 row affected (48.90 sec)</p>
+<p>设置为串行化后，会话2的插入操作被阻塞。由于在串行化下，查询操作不在使用MVCC来保证一致读，而是使用S锁来阻塞其他写操作。因此做到读写可串行化，然而换来就是并发性能的大大降低。</p>
+<p>MySQL使用可重复读来作为默认隔离级别的主要原因是语句级的Binlog。RR能提供SQL语句的写可串行化，保证了绝大部分情况（<a href="http://dev.mysql.com/doc/refman/5.1/en/binary-log-mixed.html" target="_blank" rel="noopener">不安全语句</a>除外）的DB/DR一致。</p>
+<p>另外，通过这个测试发现MySQL 5.0与5.1在RC下表现是不一样的，可能存在兼容性问题。</p>
+<p><a href="http://dev.mysql.com/doc/refman/5.1/en/binary-log-mixed.html" target="_blank" rel="noopener">http://dev.mysql.com/doc/refman/5.1/en/binary-log-mixed.html</a></p>
+<p><a href="http://dev.mysql.com/doc/refman/5.1/en/set-transaction.html" target="_blank" rel="noopener">http://dev.mysql.com/doc/refman/5.1/en/set-transaction.html</a></p>
+<p><a href="http://dev.mysql.com/doc/refman/5.0/en/set-transaction.html" target="_blank" rel="noopener">http://dev.mysql.com/doc/refman/5.0/en/set-transaction.html</a></p>
+<p><a href="http://dev.mysql.com/doc/refman/5.5/en/innodb-parameters.html#sysvar_innodb_locks_unsafe_for_binlog" target="_blank" rel="noopener">http://dev.mysql.com/doc/refman/5.5/en/innodb-parameters.html#sysvar_innodb_locks_unsafe_for_binlog</a></p>
+<p><a href="http://blog.bitfly.cn/post/mysql-innodb-phantom-read/" target="_blank" rel="noopener">http://blog.bitfly.cn/post/mysql-innodb-phantom-read/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/02/27/yuque/MySQL使用可重复读作为默认隔离级别的原因 - vinchen - 博客园/" data-id="cjxbc1anl000b769pcxlh0b5e" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/03/15/yuque/实例分析MySQL下的四种事务隔离级别 - 后端 - 掘金/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          实例分析MySQL下的四种事务隔离级别 - 后端 - 掘金
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/02/25/yuque/常用的sql语句/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">常用的sql语句</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/25/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/20/yuque/30个mysql千万级大数据SQL查询优化技巧/">30个mysql千万级大数据SQL查询优化技巧</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/21/yuque/MySQL 性能优化神器 Explain 使用分析/">MySQL 性能优化神器 Explain 使用分析</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/18/yuque/上线之前/">上线之前</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/25/yuque/Java动态追踪技术探究 - 美团技术团队/">Java动态追踪技术探究 - 美团技术团队</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

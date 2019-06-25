@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Trie 树 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="2013年09月23日 02:14:27 arhaiyun 阅读数：9467 *Trie 树， *又称字典树，单词查找树。它来源于retrieval(检索)中取中间四个字符构成(读音同try)。用于存储大量的字符串以便支持快速模式匹配。主要应用在信息检索领域。 Trie 有三种结构： 标准trie (standard trie)、压缩trie、后缀trie(suffix trie) 。 最后一种将">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Trie 树">
+<meta property="og:url" content="http://yoursite.com/2019/01/24/yuque/Trie 树/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="2013年09月23日 02:14:27 arhaiyun 阅读数：9467 *Trie 树， *又称字典树，单词查找树。它来源于retrieval(检索)中取中间四个字符构成(读音同try)。用于存储大量的字符串以便支持快速模式匹配。主要应用在信息检索领域。 Trie 有三种结构： 标准trie (standard trie)、压缩trie、后缀trie(suffix trie) 。 最后一种将">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://hxraid.iteye.com/upload/picture/pic/57141/51209a0f-3903-36fd-b3b2-19afa62c8cf2.jpg#width=">
+<meta property="og:updated_time" content="2019-06-25T04:51:16.209Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Trie 树">
+<meta name="twitter:description" content="2013年09月23日 02:14:27 arhaiyun 阅读数：9467 *Trie 树， *又称字典树，单词查找树。它来源于retrieval(检索)中取中间四个字符构成(读音同try)。用于存储大量的字符串以便支持快速模式匹配。主要应用在信息检索领域。 Trie 有三种结构： 标准trie (standard trie)、压缩trie、后缀trie(suffix trie) 。 最后一种将">
+<meta name="twitter:image" content="http://hxraid.iteye.com/upload/picture/pic/57141/51209a0f-3903-36fd-b3b2-19afa62c8cf2.jpg#width=">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-yuque/Trie 树" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/01/24/yuque/Trie 树/" class="article-date">
+  <time datetime="2019-01-24T04:45:16.000Z" itemprop="datePublished">2019-01-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Trie 树
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>2013年09月23日 02:14:27 <a href="https://me.csdn.net/arhaiyun" target="_blank" rel="noopener">arhaiyun</a> 阅读数：9467</p>
+<p>*<em>Trie 树， *</em>又称字典树，单词查找树。它来源于retrieval(检索)中取中间四个字符构成(读音同try)。用于存储大量的字符串以便支持快速模式匹配。主要应用在信息检索领域。</p>
+<p>Trie 有三种结构： 标准trie (standard trie)、压缩trie、<a href="http://hxraid.iteye.com/blog/620414" target="_blank" rel="noopener">后缀trie(suffix trie)</a> 。 最后一种将在<a href="https://www.baidu.com/s?wd=%E3%80%8A%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%84%E7%90%864%EF%BC%9A%E5%90%8E%E7%BC%80%E6%A0%91%E3%80%8B&tn=24004469_oem_dg&rsv_dl=gh_pl_sl_csd" target="_blank" rel="noopener">《字符串处理4：后缀树》</a>中详细讲，这里只将前两种。</p>
+<p><strong>1. 标准Trie (standard trie)</strong></p>
+<p>*<em>标准 Trie树的结构 *</em>： 所有含有公共前缀的字符串将挂在树中同一个结点下。实际上trie简明的存储了存在于串集合中的所有公共前缀。 假如有这样一个字符串集合X{bear,bell,bid,bull,buy,sell,stock,stop}。它的标准Trie树如下图：</p>
+<p><img src="http://hxraid.iteye.com/upload/picture/pic/57141/51209a0f-3903-36fd-b3b2-19afa62c8cf2.jpg#width=" alt></p>
+<p>上图（蓝色圆形结点为内部结点，红色方形结点为外部结点），我们可以很清楚的看到字符串集合X构造的Trie树结构。其中从根结点到红色方框叶子节点所经历的所有字符组成的串就是字符串集合X中的一个串。</p>
+<p>注意这里有一个问题： 如果X集合中有一个串是另一个串的前缀呢？ 比如，X集合中加入串bi。那么上图的Trie树在绿色箭头所指的内部结点i 就应该也标记成红色方形结点。这样话，一棵树的枝干上将出现两个连续的叶子结点(这是不合常理的)。</p>
+<p>也就是说字符串集合X中不存在一个串是另外一个串的前缀 。如何满足这个要求呢？我们可以在X中的每个串后面加入一个特殊字符$(这个字符将不会出现在字母表中)。这样，集合X{bear$、bell$、…. bi$、bid$}一定会满足这个要求。</p>
+<p>总结：一个存储长度为n，来自大小为d的字母表中s个串的集合X的标准trie具有性质如下：</p>
+<p>(1) 树中每个内部结点至多有d个子结点。</p>
+<p>(2) 树有s个外部结点。</p>
+<p>(3) 树的高度等于X中最长串的长度。</p>
+<p>(4) 树中的结点数为O(n)。</p>
+<p><strong>标准 Trie树的查找</strong></p>
+<p>对于英文单词的查找，我们完全可以在内部结点中建立26个元素组成的指针数组。如果要查找a，只需要在内部节点的指针数组中找第0个指针即可(b=第1个指针，随机定位)。时间复杂度为O(1)。</p>
+<p>查找过程：假如我们要在上面那棵Trie中查找字符串bull (b-u-l-l)。</p>
+<p>(1) 在root结点中查找第(‘b’-‘a’=1)号孩子指针，发现该指针不为空，则定位到第1号孩子结点处——b结点。</p>
+<p>(2) 在b结点中查找第(‘u’-‘a’=20)号孩子指针，发现该指针不为空，则定位到第20号孩子结点处——u结点。</p>
+<p>(3) … 一直查找到叶子结点出现特殊字符’$’位置，表示找到了bull字符串</p>
+<p>如果在查找过程中终止于内部结点，则表示没有找到待查找字符串。</p>
+<p>效率：对于有n个英文字母的串来说，在内部结点中定位指针所需要花费O(d)时间，d为字母表的大小，英文为26。由于在上面的算法中内部结点指针定位使用了数组随机存储方式，因此时间复杂度降为了O(1)。但是如果是中文字，下面在实际应用中会提到。因此我们在这里还是用O(d)。 查找成功的时候恰好走了一条从根结点到叶子结点的路径。因此时间复杂度为O(d*n)。</p>
+<p>但是，当查找集合X中所有字符串两两都不共享前缀时，trie中出现最坏情况。除根之外，所有内部结点都自由一个子结点。此时的查找时间复杂度蜕化为O(d*(n^2))</p>
+<p><strong>标准 Trie树的Java代码实现：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">StandarTire.java</span></span><br><span class="line"><span class="comment">Trie 树， 又称字典树，单词查找树。</span></span><br><span class="line"><span class="comment">它来源于retrieval(检索)中取中间四个字符构成(读音同try)。用于存储大量的字符串以便支持快速模式匹配。主要应用在信息检索领域。</span></span><br><span class="line"><span class="comment">@author arhaiyun</span></span><br><span class="line"><span class="comment">date:2013/09/23</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">enum</span> NodeKind&#123;LN, BN&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">*Trie node</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TrieNode</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> key;</span><br><span class="line">	TrieNode[] points = <span class="keyword">null</span>;</span><br><span class="line">	NodeKind kind = <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Branch node</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BranchNode</span> <span class="keyword">extends</span> <span class="title">TrieNode</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	BranchNode(<span class="keyword">char</span> k)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">super</span>.key = k;</span><br><span class="line">		<span class="keyword">super</span>.kind = NodeKind.BN;</span><br><span class="line">		<span class="keyword">super</span>.points = <span class="keyword">new</span> TrieNode[<span class="number">27</span>];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Leaf node</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LeafNode</span> <span class="keyword">extends</span> <span class="title">TrieNode</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	LeafNode(<span class="keyword">char</span> k)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">super</span>.key = k;</span><br><span class="line">		<span class="keyword">super</span>.kind = NodeKind.LN;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StandardTrie</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="comment">//Create root node</span></span><br><span class="line">	TrieNode root = <span class="keyword">new</span> BranchNode(<span class="string">' '</span>);</span><br><span class="line"> </span><br><span class="line">	<span class="comment">//[1].Insert a word into tire tree</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(String words)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		TrieNode curNode = root;</span><br><span class="line">		<span class="comment">//add '$' as an end symbol</span></span><br><span class="line">		words = words + <span class="string">"$"</span>;</span><br><span class="line">		<span class="keyword">char</span>[] chars = words.toCharArray();</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; chars.length; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(chars[i] == <span class="string">'$'</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				curNode.points[<span class="number">26</span>] = <span class="keyword">new</span> LeafNode(<span class="string">'$'</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">int</span> pSize = chars[i] - <span class="string">'a'</span>;</span><br><span class="line">				<span class="comment">// If not exists creat a new branch node</span></span><br><span class="line">				<span class="keyword">if</span>(curNode.points[pSize] == <span class="keyword">null</span>)</span><br><span class="line">				&#123;</span><br><span class="line">					curNode.points[pSize] = <span class="keyword">new</span> BranchNode(chars[i]);</span><br><span class="line">				&#125;</span><br><span class="line">				curNode = curNode.points[pSize];</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//[2].Check if a word is in tire tree</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">fullMatch</span><span class="params">(String words)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		TrieNode curNode = root;</span><br><span class="line">		<span class="keyword">char</span>[] chars = words.toCharArray();</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; chars.length; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> pSize = chars[i] - <span class="string">'a'</span>;</span><br><span class="line">			System.out.print(chars[i]+<span class="string">"-&gt;"</span>);</span><br><span class="line">			<span class="keyword">if</span>(curNode.points[pSize] == <span class="keyword">null</span>)</span><br><span class="line">				<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">			curNode = curNode.points[pSize];</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(curNode.points[<span class="number">26</span>] != <span class="keyword">null</span> &amp;&amp; curNode.points[<span class="number">26</span>].key == <span class="string">'$'</span>)</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;	</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//[3].preorder root traverse</span></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">preorderTraverse</span><span class="params">(TrieNode curNode)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(curNode != <span class="keyword">null</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			System.out.print(curNode.key);</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span>(curNode.kind == NodeKind.BN)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">for</span>(TrieNode node : curNode.points)</span><br><span class="line">				&#123;</span><br><span class="line">					preorderTraverse(node);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				System.out.println();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//[4].Get root node</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> TrieNode <span class="title">getRoot</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.root;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		StandardTrie trie = <span class="keyword">new</span> StandardTrie();</span><br><span class="line">		</span><br><span class="line">		trie.insert(<span class="string">"amazon"</span>);</span><br><span class="line">		trie.insert(<span class="string">"yahoo"</span>);</span><br><span class="line">		trie.insert(<span class="string">"haiyun"</span>);</span><br><span class="line">		trie.insert(<span class="string">"baidu"</span>);</span><br><span class="line">		trie.insert(<span class="string">"alibaba"</span>);</span><br><span class="line">		trie.insert(<span class="string">"offer"</span>);</span><br><span class="line">		trie.insert(<span class="string">"stock"</span>);</span><br><span class="line">		trie.insert(<span class="string">"stop"</span>);</span><br><span class="line">		</span><br><span class="line">		trie.preorderTraverse(trie.getRoot());</span><br><span class="line">		</span><br><span class="line">		System.out.println(trie.fullMatch(<span class="string">"yahoo"</span>));</span><br><span class="line">		System.out.println(trie.fullMatch(<span class="string">"yaho"</span>));</span><br><span class="line">		System.out.println(trie.fullMatch(<span class="string">"baidu"</span>));</span><br><span class="line">		System.out.println(trie.fullMatch(<span class="string">"alibaba"</span>));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/01/24/yuque/Trie 树/" data-id="cjxbc1ani0009769p881oke9n" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/02/05/yuque/批量任务体现多线程的威力！ - 掘金/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          批量任务体现多线程的威力！ - 掘金
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/01/22/yuque/Java 泛型总结（三）：通配符的使用 - Coding - SegmentFault 思否/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Java 泛型总结（三）：通配符的使用 - Coding - SegmentFault 思否</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/25/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/20/yuque/30个mysql千万级大数据SQL查询优化技巧/">30个mysql千万级大数据SQL查询优化技巧</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/21/yuque/MySQL 性能优化神器 Explain 使用分析/">MySQL 性能优化神器 Explain 使用分析</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/18/yuque/上线之前/">上线之前</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/25/yuque/Java动态追踪技术探究 - 美团技术团队/">Java动态追踪技术探究 - 美团技术团队</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Java 泛型总结（三）：通配符的使用 - Coding - SegmentFault 思否 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="简介前两篇文章介绍了泛型的基本用法、类型擦除以及泛型数组。在泛型的使用中，还有个重要的东西叫通配符，本文介绍通配符的使用。 这个系列的另外两篇文章：  Java 泛型总结（一）：基本用法与类型擦除 Java 泛型总结（二）：泛型与数组  数组的协变在了解通配符之前，先来了解一下数组。Java 中的数组是协变的，什么意思？看下面的例子： class Fruit {} class Apple exte">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 泛型总结（三）：通配符的使用 - Coding - SegmentFault 思否">
+<meta property="og:url" content="http://yoursite.com/2019/01/22/yuque/Java 泛型总结（三）：通配符的使用 - Coding - SegmentFault 思否/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="简介前两篇文章介绍了泛型的基本用法、类型擦除以及泛型数组。在泛型的使用中，还有个重要的东西叫通配符，本文介绍通配符的使用。 这个系列的另外两篇文章：  Java 泛型总结（一）：基本用法与类型擦除 Java 泛型总结（二）：泛型与数组  数组的协变在了解通配符之前，先来了解一下数组。Java 中的数组是协变的，什么意思？看下面的例子： class Fruit {} class Apple exte">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-06-25T04:51:16.209Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java 泛型总结（三）：通配符的使用 - Coding - SegmentFault 思否">
+<meta name="twitter:description" content="简介前两篇文章介绍了泛型的基本用法、类型擦除以及泛型数组。在泛型的使用中，还有个重要的东西叫通配符，本文介绍通配符的使用。 这个系列的另外两篇文章：  Java 泛型总结（一）：基本用法与类型擦除 Java 泛型总结（二）：泛型与数组  数组的协变在了解通配符之前，先来了解一下数组。Java 中的数组是协变的，什么意思？看下面的例子： class Fruit {} class Apple exte">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-yuque/Java 泛型总结（三）：通配符的使用 - Coding - SegmentFault 思否" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/01/22/yuque/Java 泛型总结（三）：通配符的使用 - Coding - SegmentFault 思否/" class="article-date">
+  <time datetime="2019-01-22T04:57:08.000Z" itemprop="datePublished">2019-01-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Java 泛型总结（三）：通配符的使用 - Coding - SegmentFault 思否
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>前两篇文章介绍了泛型的基本用法、类型擦除以及泛型数组。在泛型的使用中，还有个重要的东西叫通配符，本文介绍通配符的使用。</p>
+<p>这个系列的另外两篇文章：</p>
+<ul>
+<li><a href="https://segmentfault.com/a/1190000005179142" target="_blank" rel="noopener">Java 泛型总结（一）：基本用法与类型擦除</a></li>
+<li><a href="https://segmentfault.com/a/1190000005179147" target="_blank" rel="noopener">Java 泛型总结（二）：泛型与数组</a></li>
+</ul>
+<h2 id="数组的协变"><a href="#数组的协变" class="headerlink" title="数组的协变"></a>数组的协变</h2><p>在了解通配符之前，先来了解一下数组。Java 中的数组是<strong>协变</strong>的，什么意思？看下面的例子：</p>
+<pre><code>class Fruit {}
+class Apple extends Fruit {}
+class Jonathan extends Apple {}
+class Orange extends Fruit {}
+
+public class CovariantArrays {
+    public static void main(String[] args) {       
+        Fruit[] fruit = new Apple[10];
+        fruit[0] = new Apple(); 
+        fruit[1] = new Jonathan(); 
+
+        try {
+
+            fruit[0] = new Fruit(); 
+        } catch(Exception e) { System.out.println(e); }
+        try {
+
+            fruit[0] = new Orange(); 
+        } catch(Exception e) { System.out.println(e); }
+        }
+} </code></pre><p><code>main</code> 方法中的第一行，创建了一个 <code>Apple</code> 数组并把它赋给 <code>Fruit</code> 数组的引用。这是有意义的，<code>Apple</code> 是 <code>Fruit</code> 的子类，一个 <code>Apple</code> 对象也是一种 <code>Fruit</code> 对象，所以一个 <code>Apple</code> 数组也是一种 <code>Fruit</code> 的数组。这称作<strong>数组的协变</strong>，Java 把数组设计为协变的，对此是有争议的，有人认为这是一种缺陷。</p>
+<p>尽管 <code>Apple[]</code> 可以 “向上转型” 为 <code>Fruit[]</code>，但数组元素的实际类型还是 <code>Apple</code>，我们只能向数组中放入 <code>Apple</code>或者 <code>Apple</code> 的子类。在上面的代码中，向数组中放入了 <code>Fruit</code> 对象和 <code>Orange</code> 对象。对于编译器来说，这是可以通过编译的，但是在运行时期，JVM 能够知道数组的实际类型是 <code>Apple[]</code>，所以当其它对象加入数组的时候就会抛出异常。</p>
+<p>泛型设计的目的之一是要使这种运行时期的错误在编译期就能发现，看看用泛型容器类来代替数组会发生什么：</p>
+<pre><code>ArrayList&lt;Fruit&gt; flist = new ArrayList&lt;Apple&gt;();</code></pre><p>上面的代码根本就无法编译。当涉及到泛型时， 尽管 <code>Apple</code> 是 <code>Fruit</code> 的子类型，但是 <code>ArrayList&lt;Apple&gt;</code> 不是 <code>ArrayList&lt;Fruit&gt;</code> 的子类型，泛型不支持协变。</p>
+<h2 id="使用通配符"><a href="#使用通配符" class="headerlink" title="使用通配符"></a>使用通配符</h2><p>从上面我们知道，<code>List&lt;Number&gt; list = ArrayList&lt;Integer&gt;</code> 这样的语句是无法通过编译的，尽管 <code>Integer</code> 是 <code>Number</code> 的子类型。那么如果我们确实需要建立这种 “向上转型” 的关系怎么办呢？这就需要通配符来发挥作用了。</p>
+<h3 id="上边界限定通配符"><a href="#上边界限定通配符" class="headerlink" title="上边界限定通配符"></a>上边界限定通配符</h3><p>利用 <code>&lt;? extends Fruit&gt;</code> 形式的通配符，可以实现泛型的向上转型：</p>
+<pre><code>public class GenericsAndCovariance {
+    public static void main(String[] args) {
+
+        List&lt;? extends Fruit&gt; flist = new ArrayList&lt;Apple&gt;();
+
+
+
+
+        flist.add(null); 
+
+        Fruit f = flist.get(0);
+    }
+}</code></pre><p>上面的例子中， <code>flist</code> 的类型是 <code>List&lt;? extends Fruit&gt;</code>，我们可以把它读作：一个类型的 List， 这个类型可以是继承了 <code>Fruit</code> 的某种类型。注意，<strong>这并不是说这个 List 可以持有</strong> <code>Fruit</code> <strong>的任意类型</strong>。通配符代表了一种特定的类型，它表示 “某种特定的类型，但是 <code>flist</code> 没有指定”。这样不太好理解，具体针对这个例子解释就是，<code>flist</code> 引用可以指向某个类型的 List，只要这个类型继承自 <code>Fruit</code>，可以是 <code>Fruit</code> 或者 <code>Apple</code>，比如例子中的 <code>new ArrayList&lt;Apple&gt;</code>，但是为了向上转型给 <code>flist</code>，<code>flist</code> 并不关心这个具体类型是什么。</p>
+<p>如上所述，通配符 <code>List&lt;? extends Fruit&gt;</code> 表示某种特定类型 ( <code>Fruit</code> 或者其子类 ) 的 List，但是并不关心这个实际的类型到底是什么，反正是 <code>Fruit</code> 的子类型，<code>Fruit</code> 是它的上边界。那么对这样的一个 List 我们能做什么呢？其实如果我们不知道这个 List 到底持有什么类型，怎么可能安全的添加一个对象呢？在上面的代码中，向 <code>flist</code> 中添加任何对象，无论是 <code>Apple</code> 还是 <code>Orange</code> 甚至是 <code>Fruit</code> 对象，编译器都不允许，唯一可以添加的是 <code>null</code>。所以如果做了泛型的向上转型 (<code>List&lt;? extends Fruit&gt; flist = new ArrayList&lt;Apple&gt;()</code>)，那么我们也就失去了向这个 List 添加任何对象的能力，即使是 <code>Object</code> 也不行。</p>
+<p>另一方面，如果调用某个返回 <code>Fruit</code> 的方法，这是安全的。因为我们知道，在这个 List 中，不管它实际的类型到底是什么，但肯定能转型为 <code>Fruit</code>，所以编译器允许返回 <code>Fruit</code>。</p>
+<p>了解了通配符的作用和限制后，好像任何接受参数的方法我们都不能调用了。其实倒也不是，看下面的例子：</p>
+<pre><code>public class CompilerIntelligence {
+    public static void main(String[] args) {
+        List&lt;? extends Fruit&gt; flist =
+        Arrays.asList(new Apple());
+        Apple a = (Apple)flist.get(0); 
+        flist.contains(new Apple()); 
+        flist.indexOf(new Apple()); 
+
+
+
+    }
+}</code></pre><p>在上面的例子中，<code>flist</code> 的类型是 <code>List&lt;? extends Fruit&gt;</code>，泛型参数使用了受限制的通配符，所以我们失去了向其中加入任何类型对象的例子，最后一行代码无法编译。</p>
+<p>但是 <code>flist</code> 却可以调用 <code>contains</code> 和 <code>indexOf</code> 方法，它们都接受了一个 <code>Apple</code> 对象做参数。如果查看 <code>ArrayList</code> 的源代码，可以发现 <code>add()</code> 接受一个泛型类型作为参数，但是 <code>contains</code> 和 <code>indexOf</code> 接受一个 <code>Object</code> 类型的参数，下面是它们的方法签名：</p>
+<pre><code>public boolean add(E e)
+public boolean contains(Object o)
+public int indexOf(Object o)</code></pre><p>所以如果我们指定泛型参数为 <code>&lt;? extends Fruit&gt;</code> 时，<code>add()</code> 方法的参数变为 <code>? extends Fruit</code>，编译器无法判断这个参数接受的到底是 <code>Fruit</code> 的哪种类型，所以它不会接受任何类型。</p>
+<p>然而，<code>contains</code> 和 <code>indexOf</code> 的类型是 <code>Object</code>，并没有涉及到通配符，所以编译器允许调用这两个方法。这意味着一切取决于泛型类的编写者来决定那些调用是 “安全” 的，并且用 <code>Object</code> 作为这些安全方法的参数。如果某些方法不允许类型参数是通配符时的调用，这些方法的参数应该用类型参数，比如 <code>add(E e)</code>。</p>
+<p>当我们自己编写泛型类时，上面介绍的就有用了。下面编写一个 <code>Holder</code> 类：</p>
+<pre><code>public class Holder&lt;T&gt; {
+    private T value;
+    public Holder() {}
+    public Holder(T val) { value = val; }
+    public void set(T val) { value = val; }
+    public T get() { return value; }
+    public boolean equals(Object obj) {
+    return value.equals(obj);
+    }
+    public static void main(String[] args) {
+        Holder&lt;Apple&gt; Apple = new Holder&lt;Apple&gt;(new Apple());
+        Apple d = Apple.get();
+        Apple.set(d);
+
+        Holder&lt;? extends Fruit&gt; fruit = Apple; 
+        Fruit p = fruit.get();
+        d = (Apple)fruit.get(); 
+        try {
+            Orange c = (Orange)fruit.get(); 
+        } catch(Exception e) { System.out.println(e); }
+
+
+        System.out.println(fruit.equals(d)); 
+    }
+} </code></pre><p>在 <code>Holer</code> 类中，<code>set()</code> 方法接受类型参数 <code>T</code> 的对象作为参数，<code>get()</code> 返回一个 <code>T</code> 类型，而 <code>equals()</code> 接受一个 <code>Object</code> 作为参数。<code>fruit</code> 的类型是 <code>Holder&lt;? extends Fruit&gt;</code>，所以<code>set()</code>方法不会接受任何对象的添加，但是 <code>equals()</code> 可以正常工作。</p>
+<h3 id="下边界限定通配符"><a href="#下边界限定通配符" class="headerlink" title="下边界限定通配符"></a>下边界限定通配符</h3><p>通配符的另一个方向是　“超类型的通配符“: <code>? super T</code>，<code>T</code> 是类型参数的下界。使用这种形式的通配符，我们就可以 ”传递对象” 了。还是用例子解释：</p>
+<pre><code>public class SuperTypeWildcards {
+    static void writeTo(List&lt;? super Apple&gt; apples) {
+        apples.add(new Apple());
+        apples.add(new Jonathan());
+
+    }
+}</code></pre><p><code>writeTo</code> 方法的参数 <code>apples</code> 的类型是 <code>List&lt;? super Apple&gt;</code>，它表示某种类型的 List，这个类型是 <code>Apple</code> 的基类型。也就是说，我们不知道实际类型是什么，但是这个类型肯定是 <code>Apple</code> 的父类型。因此，我们可以知道向这个 List 添加一个 <code>Apple</code> 或者其子类型的对象是安全的，这些对象都可以向上转型为 <code>Apple</code>。但是我们不知道加入 <code>Fruit</code> 对象是否安全，因为那样会使得这个 List 添加跟 <code>Apple</code> 无关的类型。</p>
+<p>在了解了子类型边界和超类型边界之后，我们就可以知道如何向泛型类型中 “写入” ( 传递对象给方法参数) 以及如何从泛型类型中 “读取” ( 从方法中返回对象 )。下面是一个例子：</p>
+<pre><code>public class Collections { 
+  public static &lt;T&gt; void copy(List&lt;? super T&gt; dest, List&lt;? extends T&gt; src) 
+  {
+      for (int i=0; i&lt;src.size(); i++) 
+        dest.set(i,src.get(i)); 
+  } 
+}</code></pre><p><code>src</code> 是原始数据的 List，因为要从这里面读取数据，所以用了上边界限定通配符：<code>&lt;? extends T&gt;</code>，取出的元素转型为 <code>T</code>。<code>dest</code> 是要写入的目标 List，所以用了下边界限定通配符：<code>&lt;? super T&gt;</code>，可以写入的元素类型是 <code>T</code> 及其子类型。</p>
+<h3 id="无边界通配符"><a href="#无边界通配符" class="headerlink" title="无边界通配符"></a>无边界通配符</h3><p>还有一种通配符是无边界通配符，它的使用形式是一个单独的问号：<code>List&lt;?&gt;</code>，也就是没有任何限定。不做任何限制，跟不用类型参数的 <code>List</code> 有什么区别呢？</p>
+<p><code>List&lt;?&gt; list</code> 表示 <code>list</code> 是持有某种特定类型的 List，但是不知道具体是哪种类型。那么我们可以向其中添加对象吗？当然不可以，因为并不知道实际是哪种类型，所以不能添加任何类型，这是不安全的。而单独的 <code>List list</code> ，也就是没有传入泛型参数，表示这个 list 持有的元素的类型是 <code>Object</code>，因此可以添加任何类型的对象，只不过编译器会有警告信息。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通配符的使用可以对泛型参数做出某些限制，使代码更安全，对于上边界和下边界限定的通配符总结如下：</p>
+<ul>
+<li>使用 <code>List&lt;? extends C&gt; list</code> 这种形式，表示 list 可以引用一个 <code>ArrayList</code> ( 或者其它 List 的 子类 ) 的对象，这个对象包含的元素类型是 <code>C</code> 的子类型 ( 包含 <code>C</code> 本身）的一种。</li>
+<li>使用 <code>List&lt;? super C&gt; list</code> 这种形式，表示 list 可以引用一个 <code>ArrayList</code> ( 或者其它 List 的 子类 ) 的对象，这个对象包含的元素就类型是 <code>C</code> 的超类型 ( 包含 <code>C</code> 本身 ) 的一种。</li>
+</ul>
+<p>大多数情况下泛型的使用比较简单，但是如果自己编写支持泛型的代码需要对泛型有深入的了解。这几篇文章介绍了泛型的基本用法、类型擦除、泛型数组以及通配符的使用，涵盖了最常用的要点，泛型的总结就写到这里。</p>
+<p><strong>参考</strong></p>
+<ul>
+<li>Java 编程思想</li>
+</ul>
+<p><strong><em>如果我的文章对您有帮助，不妨点个赞支持一下(^\</em>^)_</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/01/22/yuque/Java 泛型总结（三）：通配符的使用 - Coding - SegmentFault 思否/" data-id="cjxbc1and0003769pa3b0f1wb" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/01/24/yuque/Trie 树/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Trie 树
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/01/22/yuque/Java 泛型总结（一）：基本用法与类型擦除 - Coding - SegmentFault 思否/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Java 泛型总结（一）：基本用法与类型擦除 - Coding - SegmentFault 思否</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/25/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/20/yuque/30个mysql千万级大数据SQL查询优化技巧/">30个mysql千万级大数据SQL查询优化技巧</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/21/yuque/MySQL 性能优化神器 Explain 使用分析/">MySQL 性能优化神器 Explain 使用分析</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/18/yuque/上线之前/">上线之前</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/25/yuque/Java动态追踪技术探究 - 美团技术团队/">Java动态追踪技术探究 - 美团技术团队</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

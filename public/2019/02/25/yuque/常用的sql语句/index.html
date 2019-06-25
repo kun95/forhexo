@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>常用的sql语句 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="交换两列的值123update models_mapping as a, models_mapping as b set a.souche_model_code=b.third_model_code, a.third_model_code=b.souche_model_codewhere a.id=b.id and a.src_domain=&apos;iautos.cn&apos; and a.domain=&apos;s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常用的sql语句">
+<meta property="og:url" content="http://yoursite.com/2019/02/25/yuque/常用的sql语句/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="交换两列的值123update models_mapping as a, models_mapping as b set a.souche_model_code=b.third_model_code, a.third_model_code=b.souche_model_codewhere a.id=b.id and a.src_domain=&apos;iautos.cn&apos; and a.domain=&apos;s">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-06-25T04:51:16.207Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="常用的sql语句">
+<meta name="twitter:description" content="交换两列的值123update models_mapping as a, models_mapping as b set a.souche_model_code=b.third_model_code, a.third_model_code=b.souche_model_codewhere a.id=b.id and a.src_domain=&apos;iautos.cn&apos; and a.domain=&apos;s">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-yuque/常用的sql语句" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/25/yuque/常用的sql语句/" class="article-date">
+  <time datetime="2019-02-25T12:16:55.000Z" itemprop="datePublished">2019-02-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      常用的sql语句
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a name="5042afb6"></a></p>
+<h3 id="交换两列的值"><a href="#交换两列的值" class="headerlink" title="交换两列的值"></a>交换两列的值</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> models_mapping <span class="keyword">as</span> a, models_mapping <span class="keyword">as</span> b </span><br><span class="line"><span class="keyword">set</span> a.souche_model_code=b.third_model_code, a.third_model_code=b.souche_model_code</span><br><span class="line"><span class="keyword">where</span> a.id=b.id <span class="keyword">and</span> a.src_domain=<span class="string">'iautos.cn'</span> <span class="keyword">and</span> a.domain=<span class="string">'souche.com'</span>;</span><br></pre></td></tr></table></figure>
+
+<p><a name="c54edfc1"></a></p>
+<h3 id="查询表的所有字段"><a href="#查询表的所有字段" class="headerlink" title="查询表的所有字段"></a>查询表的所有字段</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span>  <span class="keyword">GROUP_CONCAT</span>(<span class="keyword">CONCAT</span>(<span class="string">'\`'</span>,COLUMN_NAME,<span class="string">'\`'</span>)) </span><br><span class="line">	<span class="keyword">from</span> INFORMATION_SCHEMA.Columns </span><br><span class="line">  <span class="keyword">where</span> table_name=<span class="string">'brand'</span> <span class="keyword">and</span> table_schema=<span class="string">'car_model'</span></span><br><span class="line">  </span><br><span class="line"><span class="keyword">select</span> COLUMN_NAME,column_comment </span><br><span class="line">	<span class="keyword">from</span> INFORMATION_SCHEMA.Columns </span><br><span class="line">  <span class="keyword">where</span> table_name=<span class="string">'表名'</span> <span class="keyword">and</span> table_schema=<span class="string">'数据库名'</span></span><br></pre></td></tr></table></figure>
+
+<p><a name="14d46fd0"></a></p>
+<h3 id="一次新增多个字段"><a href="#一次新增多个字段" class="headerlink" title="一次新增多个字段"></a>一次新增多个字段</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> models_mapping <span class="keyword">add</span>  (<span class="string">`souche_series_name`</span> <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'来源车系名称'</span>,</span><br><span class="line"><span class="string">`third_brand_name`</span> <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'目的域品牌名称'</span>,</span><br><span class="line"><span class="string">`third_series_name`</span> <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'目的域车系名称'</span>,</span><br><span class="line"><span class="string">`third_model_name`</span> <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'目的域车型名称'</span>);</span><br></pre></td></tr></table></figure>
+
+<p><a name="65b5f47b"></a></p>
+<h3 id="复制表数据"><a href="#复制表数据" class="headerlink" title="复制表数据"></a>复制表数据</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> dictionary(<span class="keyword">field</span>,<span class="string">`key`</span>,<span class="string">`value`</span>,date_create,date_update) <span class="keyword">select</span> <span class="keyword">field</span>,dict_key ,<span class="string">`value`</span>,data_create , data_create   <span class="keyword">from</span> config_dictionary ;</span><br></pre></td></tr></table></figure>
+
+<p><a name="tZuU2"></a></p>
+<h3 id="新增唯一索引"><a href="#新增唯一索引" class="headerlink" title="新增唯一索引"></a>新增唯一索引</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> <span class="string">`dictionary`</span> <span class="keyword">add</span> <span class="keyword">UNIQUE</span> uniq_field_value(<span class="string">`field`</span>,<span class="string">`value`</span>);</span><br></pre></td></tr></table></figure>
+
+<p><a name="Ott9l"></a></p>
+<h3 id="查询参数价格颜色"><a href="#查询参数价格颜色" class="headerlink" title="查询参数价格颜色"></a>查询参数价格颜色</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> </span><br><span class="line">a.model_code <span class="string">'车型编码'</span>,</span><br><span class="line">a.model_name <span class="string">'车型名称'</span>,</span><br><span class="line">a.category_code <span class="string">'车款编码'</span>,</span><br><span class="line">a.category_name <span class="string">'车款名称'</span>,</span><br><span class="line">a.series_code <span class="string">'车系编码'</span>,</span><br><span class="line">a.series_name <span class="string">'车系名称'</span>,</span><br><span class="line">a.brand_code <span class="string">'品牌编码'</span>,</span><br><span class="line">a.brand_name <span class="string">'品牌名称'</span>,</span><br><span class="line">(<span class="keyword">select</span> <span class="keyword">Group_concat</span>(color_name SEPARATOR <span class="string">','</span>)  <span class="keyword">from</span> model_color <span class="keyword">where</span> model_code = a.model_code <span class="keyword">and</span> <span class="keyword">type</span>=<span class="number">0</span>) <span class="string">'外饰颜色'</span>,</span><br><span class="line">(<span class="keyword">select</span> <span class="keyword">Group_concat</span>(color_name SEPARATOR <span class="string">','</span>)  <span class="keyword">from</span> model_color <span class="keyword">where</span> model_code = a.model_code <span class="keyword">and</span> <span class="keyword">type</span>=<span class="number">1</span>) <span class="string">'内饰颜色'</span>,</span><br><span class="line">(<span class="keyword">select</span> guide_price  <span class="keyword">from</span> model_price <span class="keyword">where</span> model_code = a.model_code) <span class="string">'指导价'</span>,</span><br><span class="line">(<span class="keyword">select</span> assurance_period_month  <span class="keyword">from</span> model_parameter <span class="keyword">where</span> model_code = a.model_code) <span class="string">'保养周期-月'</span>,</span><br><span class="line">(<span class="keyword">select</span> assurance_period_km  <span class="keyword">from</span> model_parameter <span class="keyword">where</span> model_code = a.model_code) <span class="string">'保养周期-公里'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> <span class="keyword">model</span> a</span><br><span class="line"></span><br><span class="line"><span class="keyword">where</span> a.model_code <span class="keyword">in</span> </span><br><span class="line"></span><br><span class="line">(</span><br><span class="line">	<span class="keyword">select</span> model_code <span class="keyword">from</span> <span class="keyword">model</span> <span class="keyword">where</span> brand_code <span class="keyword">in</span> (</span><br><span class="line"><span class="string">'brand-74'</span>,<span class="string">'brand-86'</span>,<span class="string">'brand-48'</span></span><br><span class="line">)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p><a name="uE6bG"></a></p>
+<h3 id="查询车型参数"><a href="#查询车型参数" class="headerlink" title="查询车型参数"></a>查询车型参数</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">select</span> </span><br><span class="line">a.model_code <span class="string">'车型编码'</span>,</span><br><span class="line">a.model_name <span class="string">'车型名称'</span>,</span><br><span class="line">a.category_code <span class="string">'车款编码'</span>,</span><br><span class="line">a.category_name <span class="string">'车款名称'</span>,</span><br><span class="line">a.series_code <span class="string">'车系编码'</span>,</span><br><span class="line">a.series_name <span class="string">'车系名称'</span>,</span><br><span class="line">a.brand_code <span class="string">'品牌编码'</span>,</span><br><span class="line">a.brand_name <span class="string">'品牌名称'</span>,</span><br><span class="line">(<span class="keyword">select</span> <span class="keyword">value</span> <span class="keyword">from</span> dictionary <span class="keyword">where</span> <span class="string">`field`</span>=<span class="string">'fuelForm'</span> <span class="keyword">and</span> <span class="string">`key`</span>=b.fuel_form) <span class="string">'燃料形式'</span>,</span><br><span class="line">(<span class="keyword">select</span> <span class="keyword">value</span> <span class="keyword">from</span> dictionary <span class="keyword">where</span> <span class="string">`field`</span>=<span class="string">'engineVolume'</span> <span class="keyword">and</span> <span class="string">`key`</span>=b.engine_volume) <span class="string">'排量'</span>,</span><br><span class="line">(<span class="keyword">select</span> <span class="keyword">value</span> <span class="keyword">from</span> dictionary <span class="keyword">where</span> <span class="string">`field`</span>=<span class="string">'gearBox'</span> <span class="keyword">and</span> <span class="string">`key`</span>=b.gear_box) <span class="string">'变速'</span>,</span><br><span class="line">(<span class="keyword">select</span> <span class="keyword">value</span> <span class="keyword">from</span> dictionary <span class="keyword">where</span> <span class="string">`field`</span>=<span class="string">'drivingMode'</span> <span class="keyword">and</span> <span class="string">`key`</span>=b.driving_Mode) <span class="string">'驱动方式'</span>,</span><br><span class="line">(<span class="keyword">select</span> <span class="keyword">value</span> <span class="keyword">from</span> dictionary <span class="keyword">where</span> <span class="string">`field`</span>=<span class="string">'intakeType'</span> <span class="keyword">and</span> <span class="string">`key`</span>=b.intake_type) <span class="string">'进气形式'</span>,</span><br><span class="line">(<span class="keyword">select</span> <span class="keyword">value</span> <span class="keyword">from</span> dictionary <span class="keyword">where</span> <span class="string">`field`</span>=<span class="string">'bodyFormId'</span> <span class="keyword">and</span> <span class="string">`key`</span>=b.body_formid) <span class="string">'车身形式标识'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> </span><br><span class="line">	<span class="keyword">model</span> a,</span><br><span class="line">	model_parameter b</span><br><span class="line"><span class="keyword">where</span> a.model_code = b.model_code</span><br><span class="line"><span class="keyword">and</span> a.display_tag &amp; <span class="number">4</span>&gt;<span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+
+<p><a name="UmvKp"></a></p>
+<h3 id="修改列字段"><a href="#修改列字段" class="headerlink" title="修改列字段"></a>修改列字段</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> model_parameter <span class="keyword">modify</span> <span class="keyword">column</span> <span class="string">`max_power`</span> <span class="built_in">decimal</span>(<span class="number">6</span>,<span class="number">2</span>) <span class="keyword">unsigned</span> <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'最大功率(kW)'</span>;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/02/25/yuque/常用的sql语句/" data-id="cjxbc1ann000e769p41yxe2ku" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/02/27/yuque/MySQL使用可重复读作为默认隔离级别的原因 - vinchen - 博客园/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          MySQL使用可重复读作为默认隔离级别的原因 - vinchen - 博客园
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/02/05/yuque/批量任务体现多线程的威力！ - 掘金/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">批量任务体现多线程的威力！ - 掘金</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/25/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/20/yuque/30个mysql千万级大数据SQL查询优化技巧/">30个mysql千万级大数据SQL查询优化技巧</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/21/yuque/MySQL 性能优化神器 Explain 使用分析/">MySQL 性能优化神器 Explain 使用分析</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/18/yuque/上线之前/">上线之前</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/25/yuque/Java动态追踪技术探究 - 美团技术团队/">Java动态追踪技术探究 - 美团技术团队</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

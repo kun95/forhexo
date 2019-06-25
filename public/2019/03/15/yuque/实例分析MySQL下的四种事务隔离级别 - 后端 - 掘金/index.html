@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>实例分析MySQL下的四种事务隔离级别 - 后端 - 掘金 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="数据库事务有四种隔离级别：  未提交读(Read Uncommitted)：允许脏读，也就是可能读取到其他会话中未提交事务修改的数据。 提交读(Read Committed)：只能读取到已经提交的数据，Oracle等多数数据库默认都是该级别。 可重复读(Repeated Read)：可重复读。在同一个事务内的查询都是事务开始时刻一致的，InnoDB默认级别。在SQL标准中，该隔离级别消除了不可重复">
+<meta property="og:type" content="article">
+<meta property="og:title" content="实例分析MySQL下的四种事务隔离级别 - 后端 - 掘金">
+<meta property="og:url" content="http://yoursite.com/2019/03/15/yuque/实例分析MySQL下的四种事务隔离级别 - 后端 - 掘金/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="数据库事务有四种隔离级别：  未提交读(Read Uncommitted)：允许脏读，也就是可能读取到其他会话中未提交事务修改的数据。 提交读(Read Committed)：只能读取到已经提交的数据，Oracle等多数数据库默认都是该级别。 可重复读(Repeated Read)：可重复读。在同一个事务内的查询都是事务开始时刻一致的，InnoDB默认级别。在SQL标准中，该隔离级别消除了不可重复">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://gw.alipayobjects.com/os/lib/twemoji/11.2.0/2/svg/1f603.svg#align=left&display=inline&height=18&originHeight=150&originWidth=150&status=done&width=18">
+<meta property="og:updated_time" content="2019-06-25T04:51:16.206Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="实例分析MySQL下的四种事务隔离级别 - 后端 - 掘金">
+<meta name="twitter:description" content="数据库事务有四种隔离级别：  未提交读(Read Uncommitted)：允许脏读，也就是可能读取到其他会话中未提交事务修改的数据。 提交读(Read Committed)：只能读取到已经提交的数据，Oracle等多数数据库默认都是该级别。 可重复读(Repeated Read)：可重复读。在同一个事务内的查询都是事务开始时刻一致的，InnoDB默认级别。在SQL标准中，该隔离级别消除了不可重复">
+<meta name="twitter:image" content="https://gw.alipayobjects.com/os/lib/twemoji/11.2.0/2/svg/1f603.svg#align=left&display=inline&height=18&originHeight=150&originWidth=150&status=done&width=18">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-yuque/实例分析MySQL下的四种事务隔离级别 - 后端 - 掘金" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/15/yuque/实例分析MySQL下的四种事务隔离级别 - 后端 - 掘金/" class="article-date">
+  <time datetime="2019-03-15T01:37:09.000Z" itemprop="datePublished">2019-03-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      实例分析MySQL下的四种事务隔离级别 - 后端 - 掘金
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>数据库事务有四种隔离级别：</p>
+<ul>
+<li>未提交读(Read Uncommitted)：允许脏读，也就是可能读取到其他会话中未提交事务修改的数据。</li>
+<li>提交读(Read Committed)：只能读取到已经提交的数据，Oracle等多数数据库默认都是该级别。</li>
+<li>可重复读(Repeated Read)：可重复读。在同一个事务内的查询都是事务开始时刻一致的，InnoDB默认级别。在SQL标准中，该隔离级别消除了不可重复读，但是还存在幻读。</li>
+<li>串行读(Serializable)：完全串行化的读，每次读都需要获得表级共享锁，读写相互都会阻塞。</li>
+</ul>
+<p>上面这样的教科书式定义第一次接触事务隔离概念的朋友看了可能会一脸懵逼，下面我们就通过具体的实例来解释四个隔离级别。</p>
+<p>首先我们创建一个user表：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE user (</span><br><span class="line">    `id` int(11) NOT NULL AUTO_INCREMENT,</span><br><span class="line">    `name` varchar(255) NOT NULL,</span><br><span class="line">    PRIMARY KEY (`id`),</span><br><span class="line">    UNIQUE `uniq_name` USING BTREE (name)</span><br><span class="line">) ENGINE=`InnoDB` AUTO_INCREMENT=10 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;</span><br></pre></td></tr></table></figure>
+
+<p><a name="815c458e"></a></p>
+<h2 id="读未提交隔离级别"><a href="#读未提交隔离级别" class="headerlink" title="读未提交隔离级别"></a>读未提交隔离级别</h2><p>我们先将事务的隔离级别设置为<code>read uncommitted</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; set session transaction isolation level read uncommitted;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select @@session.tx_isolation;</span><br><span class="line">+------------------------+</span><br><span class="line">| @@session.tx_isolation |</span><br><span class="line">+------------------------+</span><br><span class="line">| READ-UNCOMMITTED       |</span><br><span class="line">+------------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<p>在下面我们开了两个终端分别用来模拟事务一和事务二，p.s: 操作一和操作二的意思是按照时间顺序来执行的。</p>
+<p><strong>事务1</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; start transaction; # 操作1</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; insert into user(name) values(&apos;ziwenxie&apos;); # 操作3</span><br><span class="line">Query OK, 1 row affected (0.05 sec)</span><br></pre></td></tr></table></figure>
+
+<p><strong>事务2</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; start transaction; # 操作2</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select * from user; # 操作4</span><br><span class="line">+----+----------+</span><br><span class="line">| id | name     |</span><br><span class="line">+----+----------+</span><br><span class="line">| 10 | ziwenxie |</span><br><span class="line">+----+----------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<p>从上面的执行结果可以和清晰的看出来，在read uncommited级别下面我们在事务一中可能会读取到事务二中没有commit的数据，这就是脏读。</p>
+<p><a name="3fdc691d"></a></p>
+<h2 id="读提交隔离级别"><a href="#读提交隔离级别" class="headerlink" title="读提交隔离级别"></a>读提交隔离级别</h2><p>通过设置隔离级别为<code>committed</code>可以解决上面的脏读问题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; set session transaction isolation level read committed;</span><br></pre></td></tr></table></figure>
+
+<p><strong>事务一</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; start transaction; # 操作一</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">mysql&gt; select * from user; # 操作三</span><br><span class="line">+----+----------+</span><br><span class="line">| id | name     |</span><br><span class="line">+----+----------+</span><br><span class="line">| 10 | ziwenxie |</span><br><span class="line">+----+----------+</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select * from user; # 操作五，操作四的修改并没有影响到事务一</span><br><span class="line">+----+----------+</span><br><span class="line">| id | name     |</span><br><span class="line">+----+----------+</span><br><span class="line">| 10 | ziwenxie |</span><br><span class="line">+----+----------+</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select * from user; # 操作七</span><br><span class="line"></span><br><span class="line">+----+------+</span><br><span class="line">| id | name |</span><br><span class="line">+----+------+</span><br><span class="line">| 10 | lisi |</span><br><span class="line">+----+------+</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; commit; # 操作八</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<p><strong>事务二</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; start transaction; # 操作二</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; update user set name=&apos;lisi&apos; where id=10; # 操作四</span><br><span class="line">Query OK, 1 row affected (0.06 sec)</span><br><span class="line">Rows matched: 1  Changed: 1  Warnings: 0</span><br><span class="line"></span><br><span class="line">mysql&gt; commit; # 操作六</span><br><span class="line">Query OK, 0 rows affected (0.08 sec)</span><br></pre></td></tr></table></figure>
+
+<p>虽然脏读的问题解决了，但是注意在事务一的操作七中，事务二在操作六commit后会造成事务一在同一个transaction中两次读取到的数据不同，这就是不可重复读问题，使用第三个事务隔离级别repeatable read可以解决这个问题。</p>
+<p><a name="4716d740"></a></p>
+<h2 id="可重复读隔离级别"><a href="#可重复读隔离级别" class="headerlink" title="可重复读隔离级别"></a>可重复读隔离级别</h2><p>MySQL的Innodb存储引擎默认的事务隔离级别就是可重复读隔离级别，所以我们不用进行多余的设置。</p>
+<p><strong>事务一</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; start tansactoin; # 操作一</span><br><span class="line"></span><br><span class="line">mysql&gt; select * from user; # 操作五</span><br><span class="line">+----+----------+</span><br><span class="line">| id | name     |</span><br><span class="line">+----+----------+</span><br><span class="line">| 10 | ziwenxie |</span><br><span class="line">+----+----------+</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; commit; # 操作六</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select * from user; # 操作七</span><br><span class="line">+----+------+</span><br><span class="line">| id | name |</span><br><span class="line">+----+------+</span><br><span class="line">| 10 | lisi |</span><br><span class="line">+----+------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<p><strong>事务二</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; start tansactoin; # 操作二</span><br><span class="line"></span><br><span class="line">mysql&gt; update user set name=&apos;lisi&apos; where id=10; # 操作三</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line">Rows matched: 1  Changed: 1  Warnings: 0</span><br><span class="line"></span><br><span class="line">mysql&gt; commit; # 操作四</span><br></pre></td></tr></table></figure>
+
+<p>在事务一的操作五中我们并没有读取到事务二在操作三中的update，只有在commit之后才能读到更新后的数据。</p>
+<p><a name="924b55a7"></a></p>
+<h3 id="Innodb解决了幻读么"><a href="#Innodb解决了幻读么" class="headerlink" title="Innodb解决了幻读么"></a>Innodb解决了幻读么</h3><p>实际上RR级别是可能产生幻读，InnoDB引擎官方称中利用MVCC多版本并发控制解决了这个问题，下面我们验证一下Innodb真的解决了幻读了么？</p>
+<p>为了方便展示，我修改了一下上面的user表：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; alter table user add salary int(11);</span><br><span class="line">Query OK, 0 rows affected (0.51 sec)</span><br><span class="line">Records: 0  Duplicates: 0  Warnings: 0</span><br><span class="line"></span><br><span class="line">mysql&gt; delete from user;</span><br><span class="line">Query OK, 1 rows affected (0.07 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; insert into user(name, salary) value(&apos;ziwenxie&apos;, 88888888);</span><br><span class="line">Query OK, 1 row affected (0.07 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select * from user;</span><br><span class="line">+----+----------+----------+</span><br><span class="line">| id | name     | salary   |</span><br><span class="line">+----+----------+----------+</span><br><span class="line">| 10 | ziwenxie | 88888888 |</span><br><span class="line">+----+----------+----------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<p><strong>事务一</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; start transaction;  # 操作一</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select * from user; # 操作三</span><br><span class="line">+----+----------+----------+</span><br><span class="line">| id | name     | salary   |</span><br><span class="line">+----+----------+----------+</span><br><span class="line">| 10 | ziwenxie | 88888888 |</span><br><span class="line">+----+----------+----------+</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; update user set salary=&apos;4444&apos;; # 操作六，竟然影响了两行，不是说解决了幻读么？</span><br><span class="line">Query OK, 2 rows affected (0.00 sec)</span><br><span class="line">Rows matched: 2  Changed: 2  Warnings: 0</span><br><span class="line"></span><br><span class="line">mysql&gt; select * from user; # 操作七， Innodb并没有完全解决幻读</span><br><span class="line">+----+----------+--------+</span><br><span class="line">| id | name     | salary |</span><br><span class="line">+----+----------+--------+</span><br><span class="line">| 10 | ziwenxie |   4444 |</span><br><span class="line">| 11 | zhangsan |   4444 |</span><br><span class="line">+----+----------+--------+</span><br><span class="line">2 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; commit; # 操作八</span><br><span class="line">Query OK, 0 rows affected (0.04 sec)</span><br></pre></td></tr></table></figure>
+
+<p><strong>事务二</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; start transaction; # 操作二</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; insert into user(name, salary) value(&apos;zhangsan&apos;, &apos;666666&apos;); # 操作四</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; commit; # 操作五</span><br><span class="line">Query OK, 0 rows affected (0.04 sec)</span><br></pre></td></tr></table></figure>
+
+<p>从上面的例子可以看出，Innodb并没有如官方所说解决幻读，不过上面这样的场景中也不是很常见不用过多的担心。</p>
+<p><a name="76a4df16"></a></p>
+<h2 id="串行化隔离级别"><a href="#串行化隔离级别" class="headerlink" title="串行化隔离级别"></a>串行化隔离级别</h2><p>所有事务串行执行，最高隔离级别，不会出现幻读性能会很差，实际开发中很少使用到。</p>
+<p><a name="2432b575"></a></p>
+<h3 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h3><ul>
+<li>脏读：读到了其他会话还未提交的更新</li>
+<li>幻读：读取到其他会话的新增或者删除，侧重于数量的改变</li>
+<li>不可重复读：同一个会话中两次执行相同的语句得到的结果不同</li>
+</ul>
+<p><a name="Contact"></a></p>
+<h2 id="Contact"><a href="#Contact" class="headerlink" title="Contact"></a>Contact</h2><p>GitHub: <a href="https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fziwenxie" target="_blank" rel="noopener">github.com/ziwenxie</a><br><br>Blog: <a href="https://link.juejin.im/?target=https%3A%2F%2Fwww.ziwenxie.site" target="_blank" rel="noopener">www.ziwenxie.site</a></p>
+<blockquote>
+<p>本文同步发于我的<a href="https://link.juejin.im/?target=https%3A%2F%2Fwww.ziwenxie.site%2F2017%2F08%2F08%2Fmysql-transaction-isolation%2F" target="_blank" rel="noopener">个人博客</a>，转载请声明博客出处 <img src="https://gw.alipayobjects.com/os/lib/twemoji/11.2.0/2/svg/1f603.svg#align=left&display=inline&height=18&originHeight=150&originWidth=150&status=done&width=18" alt></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/15/yuque/实例分析MySQL下的四种事务隔离级别 - 后端 - 掘金/" data-id="cjxbc1anm000d769psj051so9" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/03/15/yuque/面试官最爱的volatile关键字 - 掘金/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          面试官最爱的volatile关键字 - 掘金
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/02/27/yuque/MySQL使用可重复读作为默认隔离级别的原因 - vinchen - 博客园/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">MySQL使用可重复读作为默认隔离级别的原因 - vinchen - 博客园</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/25/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/20/yuque/30个mysql千万级大数据SQL查询优化技巧/">30个mysql千万级大数据SQL查询优化技巧</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/21/yuque/MySQL 性能优化神器 Explain 使用分析/">MySQL 性能优化神器 Explain 使用分析</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/18/yuque/上线之前/">上线之前</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/25/yuque/Java动态追踪技术探究 - 美团技术团队/">Java动态追踪技术探究 - 美团技术团队</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

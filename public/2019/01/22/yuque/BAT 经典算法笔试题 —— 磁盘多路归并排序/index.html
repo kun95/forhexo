@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>BAT 经典算法笔试题 —— 磁盘多路归并排序 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="本文由 简悦 SimpRead 转码， 原文地址 https://juejin.im/post/5c3fe473f265da615c5980de  在 LevelDB 数据库中高层数据下沉到低层时需要经历一次 Major Compaction，将高层文件的有序键值对和低层文件的多个有序键值对进行归并排序。磁盘多路归并排序算法的输入是来自多个磁盘文件的有序键值对，在内存中将这些文件的键值对进行排序">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BAT 经典算法笔试题 —— 磁盘多路归并排序">
+<meta property="og:url" content="http://yoursite.com/2019/01/22/yuque/BAT 经典算法笔试题 —— 磁盘多路归并排序/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="本文由 简悦 SimpRead 转码， 原文地址 https://juejin.im/post/5c3fe473f265da615c5980de  在 LevelDB 数据库中高层数据下沉到低层时需要经历一次 Major Compaction，将高层文件的有序键值对和低层文件的多个有序键值对进行归并排序。磁盘多路归并排序算法的输入是来自多个磁盘文件的有序键值对，在内存中将这些文件的键值对进行排序">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/1/17/1685994296d730e0?imageView2/0/w/1280/h/960/format/webp/ignore-error/1#alt=#alt=">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/1/17/16859942908a6035?imageView2/0/w/1280/h/960/format/webp/ignore-error/1#alt=#alt=">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/1/17/1685994285919537?imageView2/0/w/1280/h/960/format/webp/ignore-error/1#alt=#alt=">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/1/17/168599428a394d82?imageView2/0/w/1280/h/960/format/webp/ignore-error/1#alt=#alt=">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/1/17/1685994286796823?imageView2/0/w/1280/h/960/format/webp/ignore-error/1#alt=#alt=">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/1/17/168599428898c463?imageView2/0/w/1280/h/960/format/webp/ignore-error/1#alt=#alt=">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/1/17/16859943cc887c0c?imageView2/0/w/1280/h/960/format/webp/ignore-error/1#alt=#alt=">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/1/17/16859951b20ebd48?imageView2/0/w/1280/h/960/format/webp/ignore-error/1#alt=#alt=">
+<meta property="og:updated_time" content="2019-06-25T04:51:16.212Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="BAT 经典算法笔试题 —— 磁盘多路归并排序">
+<meta name="twitter:description" content="本文由 简悦 SimpRead 转码， 原文地址 https://juejin.im/post/5c3fe473f265da615c5980de  在 LevelDB 数据库中高层数据下沉到低层时需要经历一次 Major Compaction，将高层文件的有序键值对和低层文件的多个有序键值对进行归并排序。磁盘多路归并排序算法的输入是来自多个磁盘文件的有序键值对，在内存中将这些文件的键值对进行排序">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2019/1/17/1685994296d730e0?imageView2/0/w/1280/h/960/format/webp/ignore-error/1#alt=#alt=">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-yuque/BAT 经典算法笔试题 —— 磁盘多路归并排序" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/01/22/yuque/BAT 经典算法笔试题 —— 磁盘多路归并排序/" class="article-date">
+  <time datetime="2019-01-22T03:34:01.000Z" itemprop="datePublished">2019-01-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      BAT 经典算法笔试题 —— 磁盘多路归并排序
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>本文由 <a href="http://ksria.com/simpread/" target="_blank" rel="noopener">简悦 SimpRead</a> 转码， 原文地址 <a href="https://juejin.im/post/5c3fe473f265da615c5980de" target="_blank" rel="noopener">https://juejin.im/post/5c3fe473f265da615c5980de</a></p>
+</blockquote>
+<p>在 LevelDB 数据库中高层数据下沉到低层时需要经历一次 Major Compaction，将高层文件的有序键值对和低层文件的多个有序键值对进行归并排序。磁盘多路归并排序算法的输入是来自多个磁盘文件的有序键值对，在内存中将这些文件的键值对进行排序，然后输出到一到多个新的磁盘文件中。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/1/17/1685994296d730e0?imageView2/0/w/1280/h/960/format/webp/ignore-error/1#alt=#alt=" alt></p>
+<p>多路归并排序在大数据领域也是常用的算法，常用于海量数据排序。当数据量特别大时，这些数据无法被单个机器内存容纳，它需要被切分位多个集合分别由不同的机器进行内存排序（map 过程），然后再进行多路归并算法将来自多个不同机器的数据进行排序（reduce 过程），这是流式多路归并排序，为什么说是流式排序呢，因为数据源来源于网络套接字。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/1/17/16859942908a6035?imageView2/0/w/1280/h/960/format/webp/ignore-error/1#alt=#alt=" alt></p>
+<p>多路归并排序的优势在于内存消耗极低，它的内存占用和输入文件的数量成正比，和数据总量无关，数据总量只会线性正比影响排序的时间。</p>
+<p>下面我们来亲自实现一下磁盘多路归并算法，为什么是磁盘，因为它的输入来自磁盘文件。</p>
+<p><a name="71add235"></a></p>
+<h2 id="算法思路"><a href="#算法思路" class="headerlink" title="算法思路"></a>算法思路</h2><p>我们需要在内存里维护一个有序数组。每个输入文件当前最小的元素作为一个元素放在数组里。数组按照元素的大小保持排序状态。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/1/17/1685994285919537?imageView2/0/w/1280/h/960/format/webp/ignore-error/1#alt=#alt=" alt></p>
+<p>接下来我们开始进入循环，循环的逻辑总是从最小的元素下手，在其所在的文件取出下一个元素，和当前数组中的元素进行比较。根据比较结果进行不同的处理，这里我们使用二分查找算法进行快速比较。注意每个输入文件里面的元素都是有序的。</p>
+<ol>
+<li>如果取出来的元素和当前数组中的最小元素相等，那么就可以直接将这个元素输出。再继续下一轮循环。不可能取出比当前数组最小元素还要小的元素，因为输入文件本身也是有序的。</li>
+</ol>
+<p><img src="https://user-gold-cdn.xitu.io/2019/1/17/168599428a394d82?imageView2/0/w/1280/h/960/format/webp/ignore-error/1#alt=#alt=" alt></p>
+<ol>
+<li>否则就需要将元素插入到当前的数组中的指定位置，继续保持数组有序。然后将数组中当前最小的元素输出并移除。再进行下一轮循环。</li>
+</ol>
+<p><img src="https://user-gold-cdn.xitu.io/2019/1/17/1685994286796823?imageView2/0/w/1280/h/960/format/webp/ignore-error/1#alt=#alt=" alt> 3. 如果遇到文件结尾，那就无法继续调用 next() 方法了，这时可以直接将数组中的最小元素输出并移除，数组也跟着变小了。再进行下一轮循环。当数组空了，说明所有的文件都处理完了，算法就可以结束了。<img src="https://user-gold-cdn.xitu.io/2019/1/17/168599428898c463?imageView2/0/w/1280/h/960/format/webp/ignore-error/1#alt=#alt=" alt> 值得注意的是，数组中永远不会存在同一个文件的两个元素，如此才保证了数组的长度不会超过输入文件的数量，同时它也不会把没有结尾的文件挤出数组导致漏排序的问题。</p>
+<p><a name="0ac6e5c6"></a></p>
+<h2 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h2><p>需要特别注意的是 Java 内置了二分查找算法在使用上比较精巧。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public class Collections &#123;</span><br><span class="line">  ...</span><br><span class="line">  public static &lt;T&gt; int binarySearch(List&lt;T&gt; list, T key) &#123;</span><br><span class="line">    ...</span><br><span class="line">    if (found) &#123;</span><br><span class="line">      return index;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      return -(insertIndex+1);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>如果 key 可以在 list 中找到，那就直接返回相应的位置。如果找不到，它会返回负数，还不是简单的 -1，这个负数指明了插入的位置，也就是说在这个位置插入 key，数组将可以继续保持有序。</p>
+<p>比如 binarySearch 返回了 index=-1，那么 insertIndex 就是 -(index+1)，也就是 0，插入点在数组开头。如果返回了 index=-size-1，那么 insertIndex 就是 size，是数组末尾。其它负数会插入数组中间。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/1/17/16859943cc887c0c?imageView2/0/w/1280/h/960/format/webp/ignore-error/1#alt=#alt=" alt></p>
+<p><a name="ef74daa2"></a></p>
+<h2 id="输入文件类"><a href="#输入文件类" class="headerlink" title="输入文件类"></a>输入文件类</h2><p>对于每一个输入文件都会创建一个 MergeSource 对象，它提供了 hasNext() 和 next() 方法用于判断和获取下一个元素。注意输入文件是有序的，下一个元素就是当前输入文件最小的元素。 hasNext() 方法负责读取下一行并缓存在 cachedLine 变量中，调用 next() 方法将 cachedLine 变量转换成整数并返回。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">class MergeSource implements Closeable &#123;</span><br><span class="line">	private BufferedReader reader;</span><br><span class="line">	private String cachedLine;</span><br><span class="line">	private String filename;</span><br><span class="line"></span><br><span class="line">	public MergeSource(String filename) &#123;</span><br><span class="line">		this.filename = filename;</span><br><span class="line">		try &#123;</span><br><span class="line">            FileReader fr = new FileReader(filename);</span><br><span class="line">			this.reader = new BufferedReader(fr);</span><br><span class="line">		&#125; catch (FileNotFoundException e) &#123;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public boolean hasNext() &#123;</span><br><span class="line">		String line;</span><br><span class="line">		try &#123;</span><br><span class="line">			line = this.reader.readLine();</span><br><span class="line">			if (line == null || line.isEmpty()) &#123;</span><br><span class="line">				return false;</span><br><span class="line">			&#125;</span><br><span class="line">			this.cachedLine = line.trim();</span><br><span class="line">			return true;</span><br><span class="line">		&#125; catch (IOException e) &#123;</span><br><span class="line">		&#125;</span><br><span class="line">		return false;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public int next() &#123;</span><br><span class="line">		if (this.cachedLine == null) &#123;</span><br><span class="line">			if (!hasNext()) &#123;</span><br><span class="line">				throw new IllegalStateException(&quot;no content&quot;);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		int num = Integer.parseInt(this.cachedLine);</span><br><span class="line">		this.cachedLine = null;</span><br><span class="line">		return num;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void close() throws IOException &#123;</span><br><span class="line">		this.reader.close();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p><a name="c3bdef97"></a></p>
+<h2 id="内存有序数组元素类"><a href="#内存有序数组元素类" class="headerlink" title="内存有序数组元素类"></a>内存有序数组元素类</h2><p>在排序前先把这个数组准备好，将每个输入文件的最小元素放入数组，并排序。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">class Bin implements Comparable&lt;Bin&gt; &#123;</span><br><span class="line">	int num;</span><br><span class="line">	MergeSource source;</span><br><span class="line"></span><br><span class="line">	Bin(MergeSource source, int num) &#123;</span><br><span class="line">		this.source = source;</span><br><span class="line">		this.num = num;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public int compareTo(Bin o) &#123;</span><br><span class="line">		return this.num - o.num;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">List&lt;Bin&gt; prepare() &#123;</span><br><span class="line">  	List&lt;Bin&gt; bins = new ArrayList&lt;&gt;();</span><br><span class="line">	for (MergeSource source : sources) &#123;</span><br><span class="line">		Bin newBin = new Bin(source, source.next());</span><br><span class="line">		bins.add(newBin);</span><br><span class="line">	&#125;</span><br><span class="line">    Collections.sort(bins);</span><br><span class="line">    return bins;</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p><a name="e045cb99"></a></p>
+<h2 id="输出文件类"><a href="#输出文件类" class="headerlink" title="输出文件类"></a>输出文件类</h2><p>关闭输出文件时注意要先 flush()，避免丢失 PrintWriter 中缓冲的内容。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">class MergeOut implements Closeable &#123;</span><br><span class="line">	private PrintWriter writer;</span><br><span class="line"></span><br><span class="line">	public MergeOut(String filename) &#123;</span><br><span class="line">		try &#123;</span><br><span class="line">            FileOutputStream out = new FileOutputStream(filename);</span><br><span class="line">			this.writer = new PrintWriter(out);</span><br><span class="line">		&#125; catch (FileNotFoundException e) &#123;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void write(Bin bin) &#123;</span><br><span class="line">		writer.println(bin.num);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void close() throws IOException &#123;</span><br><span class="line">		writer.flush();</span><br><span class="line">		writer.close();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p><a name="13e490ba"></a></p>
+<h2 id="准备输入文件的内容"><a href="#准备输入文件的内容" class="headerlink" title="准备输入文件的内容"></a>准备输入文件的内容</h2><p>下面我们来生成一系列输入文件，每个输入文件中包含一堆随机整数。一共生成 n 个文件，每个文件的整数数量在 minEntries 到 minEntries 之间。返回所有输入文件的文件名列表。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; generateFiles(int n, int minEntries, int maxEntries) &#123;</span><br><span class="line">	List&lt;String&gt; files = new ArrayList&lt;&gt;();</span><br><span class="line">	for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">		String filename = &quot;input-&quot; + i + &quot;.txt&quot;;</span><br><span class="line">		PrintWriter writer;</span><br><span class="line">		try &#123;</span><br><span class="line">			writer = new PrintWriter(new FileOutputStream(filename));</span><br><span class="line">            ThreadLocalRandom rand = ThreadLocalRandom.current();</span><br><span class="line">			int entries = rand.nextInt(minEntries, maxEntries);</span><br><span class="line">			List&lt;Integer&gt; nums = new ArrayList&lt;&gt;();</span><br><span class="line">			for (int k = 0; k &lt; entries; k++) &#123;</span><br><span class="line">				int num = rand.nextInt(10000000);</span><br><span class="line">				nums.add(num);</span><br><span class="line">			&#125;</span><br><span class="line">			Collections.sort(nums);</span><br><span class="line">			for (int num : nums) &#123;</span><br><span class="line">				writer.println(num);</span><br><span class="line">			&#125;</span><br><span class="line">			writer.flush();</span><br><span class="line">			writer.close();</span><br><span class="line">		&#125; catch (FileNotFoundException e) &#123;</span><br><span class="line">		&#125;</span><br><span class="line">		files.add(filename);</span><br><span class="line">	&#125;</span><br><span class="line">	return files;</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p><a name="4772f735"></a></p>
+<h2 id="排序算法"><a href="#排序算法" class="headerlink" title="排序算法"></a>排序算法</h2><p>万事俱备，只欠东风。将上面的类都准备好之后，排序算法很简单，代码量非常少。对照上面算法思路来理解下面的算法就很容易了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">public void sort() &#123;</span><br><span class="line">	List&lt;Bin&gt; bins = prepare();</span><br><span class="line">	while (true) &#123;</span><br><span class="line">        // 取数组中最小的元素</span><br><span class="line">		MergeSource current = bins.get(0).source;</span><br><span class="line">		if (current.hasNext()) &#123;</span><br><span class="line">            // 从输入文件中取出下一个元素</span><br><span class="line">			Bin newBin = new Bin(current, current.next());</span><br><span class="line">            // 二分查找，也就是和数组中已有元素进行比较</span><br><span class="line">			int index = Collections.binarySearch(bins, newBin);</span><br><span class="line">			if (index == 0) &#123;</span><br><span class="line">                // 算法思路情况1</span><br><span class="line">				this.out.write(newBin);</span><br><span class="line">			&#125; else &#123;</span><br><span class="line">                // 算法思路情况2</span><br><span class="line">				if (index &lt; 0) &#123;</span><br><span class="line">					index = -(index+1）;</span><br><span class="line">				&#125;</span><br><span class="line">				bins.add(index, newBin);</span><br><span class="line">				Bin minBin = bins.remove(0);</span><br><span class="line">				this.out.write(minBin);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">            // 算法思路情况3:遇到文件尾</span><br><span class="line">			Bin minBin = bins.remove(0);</span><br><span class="line">			this.out.write(minBin);</span><br><span class="line">			if (bins.isEmpty()) &#123;</span><br><span class="line">				break;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p><a name="9705bbf6"></a></p>
+<h2 id="全部代码"><a href="#全部代码" class="headerlink" title="全部代码"></a>全部代码</h2><p>读者可以直接将下面的代码拷贝粘贴到 IDE 中运行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br></pre></td><td class="code"><pre><span class="line">package leetcode;</span><br><span class="line"></span><br><span class="line">import java.io.BufferedReader;</span><br><span class="line">import java.io.Closeable;</span><br><span class="line">import java.io.FileNotFoundException;</span><br><span class="line">import java.io.FileOutputStream;</span><br><span class="line">import java.io.FileReader;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.PrintWriter;</span><br><span class="line">import java.util.ArrayList;</span><br><span class="line">import java.util.Collections;</span><br><span class="line">import java.util.List;</span><br><span class="line">import java.util.concurrent.ThreadLocalRandom;</span><br><span class="line"></span><br><span class="line">public class DiskMergeSort implements Closeable &#123;</span><br><span class="line"></span><br><span class="line">	public static List&lt;String&gt; generateFiles(int n, int minEntries, int maxEntries) &#123;</span><br><span class="line">		List&lt;String&gt; files = new ArrayList&lt;&gt;();</span><br><span class="line">		for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">			String filename = &quot;input-&quot; + i + &quot;.txt&quot;;</span><br><span class="line">			PrintWriter writer;</span><br><span class="line">			try &#123;</span><br><span class="line">				writer = new PrintWriter(new FileOutputStream(filename));</span><br><span class="line">				int entries = ThreadLocalRandom.current().nextInt(minEntries, maxEntries);</span><br><span class="line">				List&lt;Integer&gt; nums = new ArrayList&lt;&gt;();</span><br><span class="line">				for (int k = 0; k &lt; entries; k++) &#123;</span><br><span class="line">					int num = ThreadLocalRandom.current().nextInt(10000000);</span><br><span class="line">					nums.add(num);</span><br><span class="line">				&#125;</span><br><span class="line">				Collections.sort(nums);</span><br><span class="line">				for (int num : nums) &#123;</span><br><span class="line">					writer.println(num);</span><br><span class="line">				&#125;</span><br><span class="line">				writer.close();</span><br><span class="line">			&#125; catch (FileNotFoundException e) &#123;</span><br><span class="line">			&#125;</span><br><span class="line">			files.add(filename);</span><br><span class="line">		&#125;</span><br><span class="line">		return files;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	private List&lt;MergeSource&gt; sources;</span><br><span class="line">	private MergeOut out;</span><br><span class="line"></span><br><span class="line">	public DiskMergeSort(List&lt;String&gt; files, String outFilename) &#123;</span><br><span class="line">		this.sources = new ArrayList&lt;&gt;();</span><br><span class="line">		for (String filename : files) &#123;</span><br><span class="line">			this.sources.add(new MergeSource(filename));</span><br><span class="line">		&#125;</span><br><span class="line">		this.out = new MergeOut(outFilename);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	static class MergeOut implements Closeable &#123;</span><br><span class="line">		private PrintWriter writer;</span><br><span class="line"></span><br><span class="line">		public MergeOut(String filename) &#123;</span><br><span class="line">			try &#123;</span><br><span class="line">				this.writer = new PrintWriter(new FileOutputStream(filename));</span><br><span class="line">			&#125; catch (FileNotFoundException e) &#123;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		public void write(Bin bin) &#123;</span><br><span class="line">			writer.println(bin.num);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		@Override</span><br><span class="line">		public void close() throws IOException &#123;</span><br><span class="line">			writer.flush();</span><br><span class="line">			writer.close();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	static class MergeSource implements Closeable &#123;</span><br><span class="line">		private BufferedReader reader;</span><br><span class="line">		private String cachedLine;</span><br><span class="line"></span><br><span class="line">		public MergeSource(String filename) &#123;</span><br><span class="line">			try &#123;</span><br><span class="line">				FileReader fr = new FileReader(filename);</span><br><span class="line">				this.reader = new BufferedReader(fr);</span><br><span class="line">			&#125; catch (FileNotFoundException e) &#123;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		public boolean hasNext() &#123;</span><br><span class="line">			String line;</span><br><span class="line">			try &#123;</span><br><span class="line">				line = this.reader.readLine();</span><br><span class="line">				if (line == null || line.isEmpty()) &#123;</span><br><span class="line">					return false;</span><br><span class="line">				&#125;</span><br><span class="line">				this.cachedLine = line.trim();</span><br><span class="line">				return true;</span><br><span class="line">			&#125; catch (IOException e) &#123;</span><br><span class="line">			&#125;</span><br><span class="line">			return false;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		public int next() &#123;</span><br><span class="line">			if (this.cachedLine == null) &#123;</span><br><span class="line">				if (!hasNext()) &#123;</span><br><span class="line">					throw new IllegalStateException(&quot;no content&quot;);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			int num = Integer.parseInt(this.cachedLine);</span><br><span class="line">			this.cachedLine = null;</span><br><span class="line">			return num;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		@Override</span><br><span class="line">		public void close() throws IOException &#123;</span><br><span class="line">			this.reader.close();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	static class Bin implements Comparable&lt;Bin&gt; &#123;</span><br><span class="line">		int num;</span><br><span class="line">		MergeSource source;</span><br><span class="line"></span><br><span class="line">		Bin(MergeSource source, int num) &#123;</span><br><span class="line">			this.source = source;</span><br><span class="line">			this.num = num;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		@Override</span><br><span class="line">		public int compareTo(Bin o) &#123;</span><br><span class="line">			return this.num - o.num;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public List&lt;Bin&gt; prepare() &#123;</span><br><span class="line">		List&lt;Bin&gt; bins = new ArrayList&lt;&gt;();</span><br><span class="line">		for (MergeSource source : sources) &#123;</span><br><span class="line">			Bin newBin = new Bin(source, source.next());</span><br><span class="line">			bins.add(newBin);</span><br><span class="line">		&#125;</span><br><span class="line">		Collections.sort(bins);</span><br><span class="line">		return bins;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void sort() &#123;</span><br><span class="line">		List&lt;Bin&gt; bins = prepare();</span><br><span class="line">		while (true) &#123;</span><br><span class="line">			MergeSource current = bins.get(0).source;</span><br><span class="line">			if (current.hasNext()) &#123;</span><br><span class="line">				Bin newBin = new Bin(current, current.next());</span><br><span class="line">				int index = Collections.binarySearch(bins, newBin);</span><br><span class="line">				if (index == 0 || index == -1) &#123;</span><br><span class="line">					this.out.write(newBin);</span><br><span class="line">					if (index == -1) &#123;</span><br><span class="line">						throw new IllegalStateException(&quot;impossible&quot;);</span><br><span class="line">					&#125;</span><br><span class="line">				&#125; else &#123;</span><br><span class="line">					if (index &lt; 0) &#123;</span><br><span class="line">						index = -index - 1;</span><br><span class="line">					&#125;</span><br><span class="line">					bins.add(index, newBin);</span><br><span class="line">					Bin minBin = bins.remove(0);</span><br><span class="line">					this.out.write(minBin);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125; else &#123;</span><br><span class="line">				Bin minBin = bins.remove(0);</span><br><span class="line">				this.out.write(minBin);</span><br><span class="line">				if (bins.isEmpty()) &#123;</span><br><span class="line">					break;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void close() throws IOException &#123;</span><br><span class="line">		for (MergeSource source : sources) &#123;</span><br><span class="line">			source.close();</span><br><span class="line">		&#125;</span><br><span class="line">		this.out.close();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) throws IOException &#123;</span><br><span class="line">		List&lt;String&gt; inputs = DiskMergeSort.generateFiles(100, 10000, 20000);</span><br><span class="line">		// 运行多次看算法耗时</span><br><span class="line">		for (int i = 0; i &lt; 20; i++) &#123;</span><br><span class="line">			DiskMergeSort sorter = new DiskMergeSort(inputs, &quot;output.txt&quot;);</span><br><span class="line">			long start = System.currentTimeMillis();</span><br><span class="line">			sorter.sort();</span><br><span class="line">			long duration = System.currentTimeMillis() - start;</span><br><span class="line">			System.out.printf(&quot;%dms\n&quot;, duration);</span><br><span class="line">			sorter.close();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>本算法还有一个小缺陷，那就是如果输入文件数量非常多，那么内存中的数组就会特别大，对数组的插入删除操作肯定会很耗时，这时可以考虑使用 TreeSet 来代替数组，读者们可以自行尝试一下。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/1/17/16859951b20ebd48?imageView2/0/w/1280/h/960/format/webp/ignore-error/1#alt=#alt=" alt></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/01/22/yuque/BAT 经典算法笔试题 —— 磁盘多路归并排序/" data-id="cjxbc1ana0001769pbuo571d0" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/01/22/yuque/同步、异步、阻塞、非阻塞/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          同步、异步、阻塞、非阻塞
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/01/22/yuque/跟着动画来学习 TCP 三次握手和四次挥手/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">跟着动画来学习 TCP 三次握手和四次挥手</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/25/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/20/yuque/30个mysql千万级大数据SQL查询优化技巧/">30个mysql千万级大数据SQL查询优化技巧</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/21/yuque/MySQL 性能优化神器 Explain 使用分析/">MySQL 性能优化神器 Explain 使用分析</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/18/yuque/上线之前/">上线之前</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/25/yuque/Java动态追踪技术探究 - 美团技术团队/">Java动态追踪技术探究 - 美团技术团队</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

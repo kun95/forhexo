@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>码农的运维指南 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="查询时间段内的日志12sed -n &apos;/20180905:06:20:00/,/20180905:06:30:00/p&apos;  tomcat_stdout.log-20180905sed -n &apos;/20180905:02:10/,/20180905:02:20/p&apos;  tomcat_stdout.log-20180905   查询文件的后10行1tail -n 10 tomcat_stdout.lo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="码农的运维指南">
+<meta property="og:url" content="http://yoursite.com/2019/01/22/yuque/码农的运维指南/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="查询时间段内的日志12sed -n &apos;/20180905:06:20:00/,/20180905:06:30:00/p&apos;  tomcat_stdout.log-20180905sed -n &apos;/20180905:02:10/,/20180905:02:20/p&apos;  tomcat_stdout.log-20180905   查询文件的后10行1tail -n 10 tomcat_stdout.lo">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-06-25T04:51:16.246Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="码农的运维指南">
+<meta name="twitter:description" content="查询时间段内的日志12sed -n &apos;/20180905:06:20:00/,/20180905:06:30:00/p&apos;  tomcat_stdout.log-20180905sed -n &apos;/20180905:02:10/,/20180905:02:20/p&apos;  tomcat_stdout.log-20180905   查询文件的后10行1tail -n 10 tomcat_stdout.lo">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-yuque/码农的运维指南" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/01/22/yuque/码农的运维指南/" class="article-date">
+  <time datetime="2019-01-22T03:29:01.000Z" itemprop="datePublished">2019-01-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      码农的运维指南
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a name="a3bf94c1"></a></p>
+<h4 id="查询时间段内的日志"><a href="#查询时间段内的日志" class="headerlink" title="查询时间段内的日志"></a>查询时间段内的日志</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sed -n <span class="string">'/20180905:06:20:00/,/20180905:06:30:00/p'</span>  tomcat_stdout.log-20180905</span><br><span class="line">sed -n <span class="string">'/20180905:02:10/,/20180905:02:20/p'</span>  tomcat_stdout.log-20180905</span><br></pre></td></tr></table></figure>
+
+<p><a name="7c1c8e68"></a></p>
+<h4 id="查询文件的后10行"><a href="#查询文件的后10行" class="headerlink" title="查询文件的后10行"></a>查询文件的后10行</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tail -n 10 tomcat_stdout.log-20180905</span><br></pre></td></tr></table></figure>
+
+<p><a name="9d60e7b5"></a></p>
+<h4 id="查询文件的前10行"><a href="#查询文件的前10行" class="headerlink" title="查询文件的前10行"></a>查询文件的前10行</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">head -n 10 tomcat_stdout.log-20180905</span><br></pre></td></tr></table></figure>
+
+<p><a name="db8ad796"></a></p>
+<h4 id="在指定目录下查询是否有指定名称的文件"><a href="#在指定目录下查询是否有指定名称的文件" class="headerlink" title="在指定目录下查询是否有指定名称的文件"></a>在指定目录下查询是否有指定名称的文件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /logs/ -name <span class="string">'abc.log'</span></span><br></pre></td></tr></table></figure>
+
+<p><a name="c8c0d895"></a></p>
+<h4 id="一次搜索多个gz文件中的内容"><a href="#一次搜索多个gz文件中的内容" class="headerlink" title="一次搜索多个gz文件中的内容"></a>一次搜索多个gz文件中的内容</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zgrep 1537354997562_xRi0 mybatis*2018-09-19.log*|grep che168_1004076</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/01/22/yuque/码农的运维指南/" data-id="cjxbc1ano000f769pzlbre4uo" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/01/22/yuque/Java8 新特性指导手册/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Java8 新特性指导手册
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/25/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/20/yuque/30个mysql千万级大数据SQL查询优化技巧/">30个mysql千万级大数据SQL查询优化技巧</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/21/yuque/MySQL 性能优化神器 Explain 使用分析/">MySQL 性能优化神器 Explain 使用分析</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/18/yuque/上线之前/">上线之前</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/25/yuque/Java动态追踪技术探究 - 美团技术团队/">Java动态追踪技术探究 - 美团技术团队</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
