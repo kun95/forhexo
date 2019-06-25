@@ -16,13 +16,9 @@ tags: []
 
 集合是Java开发日常开发中经常会使用到的。在之前的一些文章中，我们介绍过一些关于使用集合类应该注意的事项，如《为什么阿里巴巴禁止在 foreach 循环里进行元素的 remove/add 操作》、《为什么阿里巴巴建议集合初始化时，指定集合容量大小》等。
 
-
+<!-- more -->
 
 关于集合类，《阿里巴巴Java开发手册》中其实还有另外一个规定：
-
-![](https://user-gold-cdn.xitu.io/2019/6/25/16b8c5809732a52d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1#align=left&display=inline&height=220&originHeight=220&originWidth=1280&status=done&width=1280)
-
-￼
 
 本文就来分析一下为什么会有如此建议？其背后的原理是什么？
 
