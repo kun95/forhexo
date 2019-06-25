@@ -1,139 +1,547 @@
 <!DOCTYPE html>
-<html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
 <head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="utf-8">
-  
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   
-  <title>Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,Spring,Mybatis,面试,分布式,多线程,数据库,优化,并发,React,Flutter">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="网络资源搬运工 Java Spring 面试 数据库 算法 zk dubbo 分布式 redis React Flutter anything">
+<meta name="keywords" content="网络资源搬运工 Java Spring 面试 数据库 算法 zk dubbo 分布式 redis React Flutter anything">
+<meta property="og:type" content="website">
+<meta property="og:title" content="My Blogs">
 <meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:locale" content="default">
+<meta property="og:site_name" content="My Blogs">
+<meta property="og:description" content="网络资源搬运工 Java Spring 面试 数据库 算法 zk dubbo 分布式 redis React Flutter anything">
+<meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/06/25/hello-world/" class="article-date">
-  <time datetime="2019-06-25T01:39:41.777Z" itemprop="datePublished">2019-06-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/25/hello-world/">Hello World</a>
-    </h1>
+<meta name="twitter:title" content="My Blogs">
+<meta name="twitter:description" content="网络资源搬运工 Java Spring 面试 数据库 算法 zk dubbo 分布式 redis React Flutter anything">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/">
+
+
+
+
+
+  <title>My Blogs</title>
   
 
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+  page-home">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">My Blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">求知若渴 虚心若愚</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-主页"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-归档"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/25/yuque/为什么阿里巴巴要求谨慎使用ArrayList中的subList方法 - 掘金/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="临安的风">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="My Blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/25/yuque/为什么阿里巴巴要求谨慎使用ArrayList中的subList方法 - 掘金/" itemprop="url">为什么阿里巴巴要求谨慎使用ArrayList中的subList方法 - 掘金</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-25T15:48:15+08:00">
+                2019-06-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+      
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+      
+        
+          
+            <p><a href="https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fhollischuang%2FtoBeTopJavaer" target="_blank" rel="noopener">GitHub 3.7k Star 的Java工程师成神之路 ，不来了解一下吗?</a></p>
+<p><a href="https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fhollischuang%2FtoBeTopJavaer" target="_blank" rel="noopener">GitHub 3.7k Star 的Java工程师成神之路 ，真的不来了解一下吗?</a></p>
+<p><a href="https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fhollischuang%2FtoBeTopJavaer" target="_blank" rel="noopener">GitHub 3.7k Star 的Java工程师成神之路 ，真的确定不来了解一下吗?</a></p>
+<p>集合是Java开发日常开发中经常会使用到的。在之前的一些文章中，我们介绍过一些关于使用集合类应该注意的事项，如《为什么阿里巴巴禁止在 foreach 循环里进行元素的 remove/add 操作》、《为什么阿里巴巴建议集合初始化时，指定集合容量大小》等。</p>
+<p>关于集合类，《阿里巴巴Java开发手册》中其实还有另外一个规定：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/6/25/16b8c5809732a52d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1#align=left&display=inline&height=220&originHeight=220&originWidth=1280&status=done&width=1280" alt></p>
+<p>￼</p>
+<p>本文就来分析一下为什么会有如此建议？其背后的原理是什么？</p>
+<p><a name="subList"></a></p>
+<h3 id="subList"><a href="#subList" class="headerlink" title="subList"></a>subList</h3><p>subList是List接口中定义的一个方法，该方法主要用于返回一个集合中的一段、可以理解为截取一个集合中的部分元素，他的返回值也是一个List。</p>
+<p>如以下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">    List&lt;String&gt; names = new ArrayList&lt;String&gt;() &#123;&#123;</span><br><span class="line">        add(&quot;Hollis&quot;);</span><br><span class="line">        add(&quot;hollischuang&quot;);</span><br><span class="line">        add(&quot;H&quot;);</span><br><span class="line">    &#125;&#125;;</span><br><span class="line"></span><br><span class="line">    List subList = names.subList(0, 1);</span><br><span class="line">    System.out.println(subList);</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>以上代码输出结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[Hollis]</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>如果我们改动下代码，将subList的返回值强转成ArrayList试一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">    List&lt;String&gt; names = new ArrayList&lt;String&gt;() &#123;&#123;</span><br><span class="line">        add(&quot;Hollis&quot;);</span><br><span class="line">        add(&quot;hollischuang&quot;);</span><br><span class="line">        add(&quot;H&quot;);</span><br><span class="line">    &#125;&#125;;</span><br><span class="line"></span><br><span class="line">    ArrayList subList = names.subList(0, 1);</span><br><span class="line">    System.out.println(subList);</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<p>以上代码将抛出异常：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java.lang.ClassCastException: java.util.ArrayList$SubList cannot be cast to java.util.ArrayList</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
 
+<p>不只是强转成ArrayList会报错，强转成LinkedList、Vector等List的实现类同样也都会报错。</p>
+<p>那么，为什么会发生这样的报错呢？我们接下来深入分析一下。</p>
+<p><a href></a><br><a name="e971e343"></a></p>
+<h3 id="底层原理"><a href="#底层原理" class="headerlink" title="底层原理"></a>底层原理</h3><p>首先，我们看下subList方法给我们返回的List到底是个什么东西，这一点在JDK源码中注释是这样说的：</p>
+<blockquote>
+<p>Returns a view of the portion of this list between the specifiedfromIndex, inclusive, and toIndex, exclusive.</p>
+</blockquote>
+<p>也就是说subList 返回是一个视图，那么什么叫做视图呢？</p>
+<p>我们看下subList的源码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public List&lt;E&gt; subList(int fromIndex, int toIndex) &#123;</span><br><span class="line">    subListRangeCheck(fromIndex, toIndex, size);</span><br><span class="line">    return new SubList(this, 0, fromIndex, toIndex);</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>这个方法返回了一个SubList，这个类是ArrayList中的一个内部类。</p>
+<p>SubList这个类中单独定义了set、get、size、add、remove等方法。</p>
+<p>当我们调用subList方法的时候，会通过调用SubList的构造函数创建一个SubList，那么看下这个构造函数做了哪些事情：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">SubList(AbstractList&lt;E&gt; parent,</span><br><span class="line">            int offset, int fromIndex, int toIndex) &#123;</span><br><span class="line">    this.parent = parent;</span><br><span class="line">    this.parentOffset = fromIndex;</span><br><span class="line">    this.offset = offset + fromIndex;</span><br><span class="line">    this.size = toIndex - fromIndex;</span><br><span class="line">    this.modCount = ArrayList.this.modCount;</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，这个构造函数中把原来的List以及该List中的部分属性直接赋值给自己的一些属性了。</p>
+<p>也就是说，SubList并没有重新创建一个List，而是直接引用了原有的List（返回了父类的视图），只是指定了一下他要使用的元素的范围而已（从fromIndex（包含），到toIndex（不包含））。</p>
+<p>所以，为什么不能讲subList方法得到的集合直接转换成ArrayList呢？因为SubList只是ArrayList的内部类，他们之间并没有集成关系，故无法直接进行强制类型转换。</p>
+<p><a href></a><br><a name="f012a6ac"></a></p>
+<h3 id="视图有什么问题"><a href="#视图有什么问题" class="headerlink" title="视图有什么问题"></a>视图有什么问题</h3><p>前面通过查看源码，我们知道，subList()方法并没有重新创建一个ArrayList，而是返回了一个ArrayList的内部类——SubList。</p>
+<p>这个SubList是ArrayList的一个视图。</p>
+<p>那么，这个视图又会带来什么问题呢？我们需要简单写几段代码看一下。</p>
+<p><strong>1、非结构性改变SubList</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">    List&lt;String&gt; sourceList = new ArrayList&lt;String&gt;() &#123;&#123;</span><br><span class="line">        add(&quot;H&quot;);</span><br><span class="line">        add(&quot;O&quot;);</span><br><span class="line">        add(&quot;L&quot;);</span><br><span class="line">        add(&quot;L&quot;);</span><br><span class="line">        add(&quot;I&quot;);</span><br><span class="line">        add(&quot;S&quot;);</span><br><span class="line">    &#125;&#125;;</span><br><span class="line"></span><br><span class="line">    List subList = sourceList.subList(2, 5);</span><br><span class="line"></span><br><span class="line">    System.out.println(&quot;sourceList ： &quot; + sourceList);</span><br><span class="line">    System.out.println(&quot;sourceList.subList(2, 5) 得到List ：&quot;);</span><br><span class="line">    System.out.println(&quot;subList ： &quot; + subList);</span><br><span class="line"></span><br><span class="line">    subList.set(1, &quot;666&quot;);</span><br><span class="line"></span><br><span class="line">    System.out.println(&quot;subList.set(3,666) 得到List ：&quot;);</span><br><span class="line">    System.out.println(&quot;subList ： &quot; + subList);</span><br><span class="line">    System.out.println(&quot;sourceList ： &quot; + sourceList);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>得到结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sourceList ： [H, O, L, L, I, S]</span><br><span class="line">sourceList.subList(2, 5) 得到List ：</span><br><span class="line">subList ： [L, L, I]</span><br><span class="line">subList.set(3,666) 得到List ：</span><br><span class="line">subList ： [L, 666, I]</span><br><span class="line">sourceList ： [H, O, L, 666, I, S]</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>当我们尝试通过set方法，改变subList中某个元素的值得时候，我们发现，原来的那个List中对应元素的值也发生了改变。</p>
+<p>同理，如果我们使用同样的方法，对sourceList中的某个元素进行修改，那么subList中对应的值也会发生改变。读者可以自行尝试一下。</p>
+<p><strong>1、结构性改变SubList</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">    List&lt;String&gt; sourceList = new ArrayList&lt;String&gt;() &#123;&#123;</span><br><span class="line">        add(&quot;H&quot;);</span><br><span class="line">        add(&quot;O&quot;);</span><br><span class="line">        add(&quot;L&quot;);</span><br><span class="line">        add(&quot;L&quot;);</span><br><span class="line">        add(&quot;I&quot;);</span><br><span class="line">        add(&quot;S&quot;);</span><br><span class="line">    &#125;&#125;;</span><br><span class="line"></span><br><span class="line">    List subList = sourceList.subList(2, 5);</span><br><span class="line"></span><br><span class="line">    System.out.println(&quot;sourceList ： &quot; + sourceList);</span><br><span class="line">    System.out.println(&quot;sourceList.subList(2, 5) 得到List ：&quot;);</span><br><span class="line">    System.out.println(&quot;subList ： &quot; + subList);</span><br><span class="line"></span><br><span class="line">    subList.add(&quot;666&quot;);</span><br><span class="line"></span><br><span class="line">    System.out.println(&quot;subList.add(666) 得到List ：&quot;);</span><br><span class="line">    System.out.println(&quot;subList ： &quot; + subList);</span><br><span class="line">    System.out.println(&quot;sourceList ： &quot; + sourceList);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>得到结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sourceList ： [H, O, L, L, I, S]</span><br><span class="line">sourceList.subList(2, 5) 得到List ：</span><br><span class="line">subList ： [L, L, I]</span><br><span class="line">subList.add(666) 得到List ：</span><br><span class="line">subList ： [L, L, I, 666]</span><br><span class="line">sourceList ： [H, O, L, L, I, 666, S]</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>我们尝试对subList的结构进行改变，即向其追加元素，那么得到的结果是sourceList的结构也同样发生了改变。</p>
+<p><strong>1、结构性改变原List</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">    List&lt;String&gt; sourceList = new ArrayList&lt;String&gt;() &#123;&#123;</span><br><span class="line">        add(&quot;H&quot;);</span><br><span class="line">        add(&quot;O&quot;);</span><br><span class="line">        add(&quot;L&quot;);</span><br><span class="line">        add(&quot;L&quot;);</span><br><span class="line">        add(&quot;I&quot;);</span><br><span class="line">        add(&quot;S&quot;);</span><br><span class="line">    &#125;&#125;;</span><br><span class="line"></span><br><span class="line">    List subList = sourceList.subList(2, 5);</span><br><span class="line"></span><br><span class="line">    System.out.println(&quot;sourceList ： &quot; + sourceList);</span><br><span class="line">    System.out.println(&quot;sourceList.subList(2, 5) 得到List ：&quot;);</span><br><span class="line">    System.out.println(&quot;subList ： &quot; + subList);</span><br><span class="line"></span><br><span class="line">    sourceList.add(&quot;666&quot;);</span><br><span class="line"></span><br><span class="line">    System.out.println(&quot;sourceList.add(666) 得到List ：&quot;);</span><br><span class="line">    System.out.println(&quot;sourceList ： &quot; + sourceList);</span><br><span class="line">    System.out.println(&quot;subList ： &quot; + subList);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>得到结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.util.ConcurrentModificationException</span><br><span class="line">    at java.util.ArrayList$SubList.checkForComodification(ArrayList.java:1239)</span><br><span class="line">    at java.util.ArrayList$SubList.listIterator(ArrayList.java:1099)</span><br><span class="line">    at java.util.AbstractList.listIterator(AbstractList.java:299)</span><br><span class="line">    at java.util.ArrayList$SubList.iterator(ArrayList.java:1095)</span><br><span class="line">    at java.util.AbstractCollection.toString(AbstractCollection.java:454)</span><br><span class="line">    at java.lang.String.valueOf(String.java:2994)</span><br><span class="line">    at java.lang.StringBuilder.append(StringBuilder.java:131)</span><br><span class="line">    at com.hollis.SubListTest.main(SubListTest.java:28)</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>我们尝试对sourceList的结构进行改变，即向其追加元素，结果发现抛出了ConcurrentModificationException。关于这个异常，我们在《<a href="https://link.juejin.im/?target=https%3A%2F%2Fwww.hollischuang.com%2Farchives%2F3542" target="_blank" rel="noopener">一不小心就踩坑的fail-fast是个什么鬼？</a>》中分析过，这里原理相同，就不再赘述了。</p>
+<p><strong>小结</strong></p>
+<p>我们简单总结一下，List的subList方法并没有创建一个新的List，而是使用了原List的视图，这个视图使用内部类SubList表示。</p>
+<p>所以，我们不能把subList方法返回的List强制转换成ArrayList等类，因为他们之间没有继承关系。</p>
+<p>另外，视图和原List的修改还需要注意几点，尤其是他们之间的相互影响：</p>
+<p>1、对父(sourceList)子(subList)List做的非结构性修改（non-structural changes），都会影响到彼此。</p>
+<p>2、对子List做结构性修改，操作同样会反映到父List上。</p>
+<p>3、对父List做结构性修改，会抛出异常ConcurrentModificationException。</p>
+<p>所以，阿里巴巴Java开发手册中有另外一条规定：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/6/25/16b8c58095d31b5e?imageView2/0/w/1280/h/960/format/webp/ignore-error/1#align=left&display=inline&height=111&originHeight=111&originWidth=1280&status=done&width=1280" alt></p>
+<p>￼</p>
+<p><a href></a><br><a name="8572266e"></a></p>
+<h3 id="如何创建新的List"><a href="#如何创建新的List" class="headerlink" title="如何创建新的List"></a>如何创建新的List</h3><p>如果需要对subList作出修改，又不想动原list。那么可以创建subList的一个拷贝：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">subList = Lists.newArrayList(subList);</span><br><span class="line">list.stream().skip(strart).limit(end).collect(Collectors.toList());</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>PS：最近，《阿里巴巴Java开发手册》已经正式更名为《Java开发手册》，并发布了新版本，增加了21条新规约，修改描述112处。</p>
+<p>关注公众号后台回复：手册，即可获取最新版Java开发手册。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/6/25/16b8c587766e30d7?imageView2/0/w/1280/h/960/format/webp/ignore-error/1#align=left&display=inline&height=661&originHeight=661&originWidth=1087&status=done&width=1087" alt></p>
+<p>参考资料： <a href="https://link.juejin.im/?target=https%3A%2F%2Fwww.jianshu.com%2Fp%2F5854851240df" target="_blank" rel="noopener">www.jianshu.com/p/585485124…</a> <a href="https://link.juejin.im/?target=https%3A%2F%2Fwww.cnblogs.com%2Fljdblog%2Fp%2F6251387.html" target="_blank" rel="noopener">www.cnblogs.com/ljdblog/p/6…</a></p>
+<p>哈哈</p>
+
+          
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/25/hello-world/" data-id="cjxb7lkwj0000q59p74t4vp46" class="article-share-link">Share</a>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
       
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
   
-</article>
+  
+  
+  </article>
 
+
+    
+      
 
   
-    <article id="post-yuque/30个mysql千万级大数据SQL查询优化技巧" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/06/20/yuque/30个mysql千万级大数据SQL查询优化技巧/" class="article-date">
-  <time datetime="2019-06-20T15:02:07.000Z" itemprop="datePublished">2019-06-20</time>
-</a>
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/20/yuque/30个mysql千万级大数据SQL查询优化技巧/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="临安的风">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="My Blogs">
+    </span>
+
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+      <header class="post-header">
+
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/20/yuque/30个mysql千万级大数据SQL查询优化技巧/">30个mysql千万级大数据SQL查询优化技巧</a>
-    </h1>
-  
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/20/yuque/30个mysql千万级大数据SQL查询优化技巧/" itemprop="url">30个mysql千万级大数据SQL查询优化技巧</a></h1>
+        
 
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-20T23:02:07+08:00">
+                2019-06-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>本文总结了30个mysql千万级大数据SQL查询优化技巧,特别适合大</p>
+      
+
+      
+        
+          
+            <p>本文总结了30个mysql千万级大数据SQL查询优化技巧,特别适合大</p>
 <p><a href="https://link.juejin.im/?target=http%3A%2F%2Fs4.51cto.com%2Foss%2F201807%2F30%2F31e83f5bfedbbc6758440150a0337e25.jpeg-wh_651x-s_631009781.jpeg" target="_blank" rel="noopener"><img src="https://user-gold-cdn.xitu.io/2018/8/8/165188676eae5d5f?imageView2/0/w/1280/h/960/format/webp/ignore-error/1#align=left&display=inline&height=366&originHeight=366&originWidth=651&status=done&width=651" alt></a></p>
 <p>数据里的MYSQL使用。</p>
 <p>1.对查询进行优化，应尽量避免全表扫描，首先应考虑在 where 及 order by 涉及的列上建立索引。</p>
@@ -181,42 +589,125 @@
 <p>30.尽量避免向客户端返回大数据量，若数据量过大，应该考虑相应需求是否合理。</p>
 <p>如果你的程序都能满足这30条的话那么你的程序执行效率会有很大的提高</p>
 
+          
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/20/yuque/30个mysql千万级大数据SQL查询优化技巧/" data-id="cjxbc1an60000769pbxoc4y35" class="article-share-link">Share</a>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
       
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
   
-</article>
+  
+  
+  </article>
 
+
+    
+      
 
   
-    <article id="post-yuque/MySQL 性能优化神器 Explain 使用分析" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/21/yuque/MySQL 性能优化神器 Explain 使用分析/" class="article-date">
-  <time datetime="2019-05-21T03:26:05.000Z" itemprop="datePublished">2019-05-21</time>
-</a>
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/21/yuque/MySQL 性能优化神器 Explain 使用分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="临安的风">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="My Blogs">
+    </span>
+
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+      <header class="post-header">
+
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/21/yuque/MySQL 性能优化神器 Explain 使用分析/">MySQL 性能优化神器 Explain 使用分析</a>
-    </h1>
-  
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/21/yuque/MySQL 性能优化神器 Explain 使用分析/" itemprop="url">MySQL 性能优化神器 Explain 使用分析</a></h1>
+        
 
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-21T11:26:05+08:00">
+                2019-05-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p><a href></a><br><a name="e05dce83"></a></p>
+      
+
+      
+        
+          
+            <p><a href></a><br><a name="e05dce83"></a></p>
 <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>MySQL 提供了一个 EXPLAIN 命令, 它可以对 <code>SELECT</code> 语句进行分析, 并输出 <code>SELECT</code> 执行的详细信息, 以供开发人员针对性优化.<br><br>EXPLAIN 命令用法十分简单, 在 SELECT 语句前加上 Explain 就可以了, 例如:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * from user_info WHERE  id &lt; 300;</span><br></pre></td></tr></table></figure>
 
@@ -358,42 +849,125 @@
 <li>Using temporary<br><br>查询有使用临时表, 一般出现于排序, 分组和多表 join 的情况, 查询效率不高, 建议优化.</li>
 </ul>
 
+          
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/21/yuque/MySQL 性能优化神器 Explain 使用分析/" data-id="cjxbc1anh0008769pqcz40ddm" class="article-share-link">Share</a>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
       
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
   
-</article>
+  
+  
+  </article>
 
+
+    
+      
 
   
-    <article id="post-yuque/上线之前" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/04/18/yuque/上线之前/" class="article-date">
-  <time datetime="2019-04-18T06:04:12.000Z" itemprop="datePublished">2019-04-18</time>
-</a>
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/18/yuque/上线之前/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="临安的风">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="My Blogs">
+    </span>
+
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+      <header class="post-header">
+
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/18/yuque/上线之前/">上线之前</a>
-    </h1>
-  
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/18/yuque/上线之前/" itemprop="url">上线之前</a></h1>
+        
 
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-18T14:04:12+08:00">
+                2019-04-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <ol>
+      
+
+      
+        
+          
+            <ol>
 <li>入参为空有没有处理</li>
 <li>数据库查询为空有没有处理</li>
 <li>数据库新增字段有没有提交到审核平台</li>
@@ -401,42 +975,125 @@
 <li>当有新增或是修改的配置时，是否及时同步到了阿波罗</li>
 </ol>
 
+          
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/18/yuque/上线之前/" data-id="cjxbc1ank000a769pztuuevhd" class="article-share-link">Share</a>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
       
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
   
-</article>
+  
+  
+  </article>
 
+
+    
+      
 
   
-    <article id="post-yuque/Java动态追踪技术探究 - 美团技术团队" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/25/yuque/Java动态追踪技术探究 - 美团技术团队/" class="article-date">
-  <time datetime="2019-03-25T05:50:26.000Z" itemprop="datePublished">2019-03-25</time>
-</a>
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/25/yuque/Java动态追踪技术探究 - 美团技术团队/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="临安的风">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="My Blogs">
+    </span>
+
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+      <header class="post-header">
+
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/25/yuque/Java动态追踪技术探究 - 美团技术团队/">Java动态追踪技术探究 - 美团技术团队</a>
-    </h1>
-  
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/25/yuque/Java动态追踪技术探究 - 美团技术团队/" itemprop="url">Java动态追踪技术探究 - 美团技术团队</a></h1>
+        
 
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-25T13:50:26+08:00">
+                2019-03-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p><a name="47f6f944"></a></p>
+      
+
+      
+        
+          
+            <p><a name="47f6f944"></a></p>
 <h2 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h2><p>在遥远的希艾斯星球爪哇国塞沃城中，两名年轻的程序员正在为一件事情苦恼，程序出问题了，一时看不出问题出在哪里，于是有了以下对话：</p>
 <p>“Debug一下吧。”</p>
 <p>“线上机器，没开Debug端口。”</p>
@@ -571,42 +1228,125 @@
 <li>高扬，2017年加入美团打车，负责美团打车结算系统的开发。</li>
 </ul>
 
+          
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/25/yuque/Java动态追踪技术探究 - 美团技术团队/" data-id="cjxbc1ane0004769p5dja8fr4" class="article-share-link">Share</a>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
       
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
   
-</article>
+  
+  
+  </article>
 
+
+    
+      
 
   
-    <article id="post-yuque/Java后端技术" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/18/yuque/Java后端技术/" class="article-date">
-  <time datetime="2019-03-18T03:02:56.000Z" itemprop="datePublished">2019-03-18</time>
-</a>
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/18/yuque/Java后端技术/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="临安的风">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="My Blogs">
+    </span>
+
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+      <header class="post-header">
+
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/18/yuque/Java后端技术/">Java后端技术</a>
-    </h1>
-  
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/18/yuque/Java后端技术/" itemprop="url">Java后端技术</a></h1>
+        
 
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-18T11:02:56+08:00">
+                2019-03-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>Tomcat相关的面试题出场的几率并不高，正式因为如此，很多人忽略了对Tomcat相关技能的掌握，下面这一篇文章最早发布在知识星球，整理了Tomcat相关的系统架构，介绍了Server、Service、Connector、Container之间的关系，各个模块的功能，可以说把这几个掌握住了，Tomcat相关的面试题你就不会有任何问题了！另外，在面试的时候你还要有意识无意识的往Tomcat这个地方引，就比如说常见的Spring MVC的执行流程，一个URL的完整调用链路，这些相关的题目你是可以再往Tomcat处理请求的这个过程去说的！掌握注Tomcat这些技能了，面试官一定会佩服你的！</p>
+      
+
+      
+        
+          
+            <p>Tomcat相关的面试题出场的几率并不高，正式因为如此，很多人忽略了对Tomcat相关技能的掌握，下面这一篇文章最早发布在知识星球，整理了Tomcat相关的系统架构，介绍了Server、Service、Connector、Container之间的关系，各个模块的功能，可以说把这几个掌握住了，Tomcat相关的面试题你就不会有任何问题了！另外，在面试的时候你还要有意识无意识的往Tomcat这个地方引，就比如说常见的Spring MVC的执行流程，一个URL的完整调用链路，这些相关的题目你是可以再往Tomcat处理请求的这个过程去说的！掌握注Tomcat这些技能了，面试官一定会佩服你的！</p>
 <p>另外，知识星球已经精心整理了50+的高频面试题，并且每天保证更新！每一个知识点都会由浅入深的讲解，让你知道其一也要知道其二，有兴趣的看一下，希望对你能有帮助！</p>
 <p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/UtWdDgynLdYXstpJFpfibrYFW23o1t4svr8W5Chl3uRTJnVajLREneTiaic2K6Fx5IS6wicBTJBFVD5JibVWgs0AAmA/640?wx_fmt=jpeg" alt></p>
 <p>学了本节之后你应该明白的是：</p>
@@ -695,42 +1435,125 @@
 <p>8、<a href="http://mp.weixin.qq.com/s?__biz=MzI1NDQ3MjQxNA==∣=2247488498&idx=1&sn=58a3467469eb8f5f6f24456bf681f592&chksm=e9c5ea43deb263553f2f42f470d97be693d1587b9c9b576183ea5e863e703f896e47f6b9b1e4&scene=21#wechat_redirect" target="_blank" rel="noopener">杭州互联网人的冬天</a></p>
 <p><img src="https://mmbiz.qpic.cn/mmbiz_png/UtWdDgynLda8TWB0rCPDRObrOHuCRKNtndsCNwbsMejpEvEwWTibrcy9xhLbFwbOCarFP5NrZTOZtzGFjeLh6yg/640?" alt></p>
 
+          
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/18/yuque/Java后端技术/" data-id="cjxbc1ang0007769pk7husm87" class="article-share-link">Share</a>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
       
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
   
-</article>
+  
+  
+  </article>
 
+
+    
+      
 
   
-    <article id="post-yuque/面试官最爱的volatile关键字 - 掘金" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/15/yuque/面试官最爱的volatile关键字 - 掘金/" class="article-date">
-  <time datetime="2019-03-15T06:19:59.000Z" itemprop="datePublished">2019-03-15</time>
-</a>
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/15/yuque/面试官最爱的volatile关键字 - 掘金/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="临安的风">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="My Blogs">
+    </span>
+
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+      <header class="post-header">
+
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/15/yuque/面试官最爱的volatile关键字 - 掘金/">面试官最爱的volatile关键字 - 掘金</a>
-    </h1>
-  
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/15/yuque/面试官最爱的volatile关键字 - 掘金/" itemprop="url">面试官最爱的volatile关键字 - 掘金</a></h1>
+        
 
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-15T14:19:59+08:00">
+                2019-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>在Java相关的岗位面试中，很多面试官都喜欢考察面试者对Java并发的了解程度，而以<strong>volatile</strong>关键字作为一个小的切入点，往往可以一问到底，把Java内存模型（JMM），Java并发编程的一些特性都牵扯出来，深入地话还可以考察JVM底层实现以及操作系统的相关知识。</p>
+      
+
+      
+        
+          
+            <p>在Java相关的岗位面试中，很多面试官都喜欢考察面试者对Java并发的了解程度，而以<strong>volatile</strong>关键字作为一个小的切入点，往往可以一问到底，把Java内存模型（JMM），Java并发编程的一些特性都牵扯出来，深入地话还可以考察JVM底层实现以及操作系统的相关知识。</p>
 <p>下面我们以一次假想的面试过程，来深入了解下volitile关键字吧！</p>
 <p><a name="8fd431e9"></a></p>
 <h2 id="面试官-Java并发这块了解的怎么样？说说你对volatile关键字的理解"><a href="#面试官-Java并发这块了解的怎么样？说说你对volatile关键字的理解" class="headerlink" title="面试官: Java并发这块了解的怎么样？说说你对volatile关键字的理解"></a>面试官: Java并发这块了解的怎么样？说说你对volatile关键字的理解</h2><p>就我理解的而言，被volatile修饰的共享变量，就具有了以下两点特性：</p>
@@ -840,42 +1663,125 @@
 <p><a name="b8389362"></a></p>
 <h2 id="面试官：-来给我们说说几种单例模式的写法吧，还有上面这种用法，你再详细说说呢？"><a href="#面试官：-来给我们说说几种单例模式的写法吧，还有上面这种用法，你再详细说说呢？" class="headerlink" title="面试官： 来给我们说说几种单例模式的写法吧，还有上面这种用法，你再详细说说呢？"></a>面试官： 来给我们说说几种单例模式的写法吧，还有上面这种用法，你再详细说说呢？</h2><p>好吧，这又是一个话题了，volatile的问题终于问完了。。。看看你掌握了没</p>
 
+          
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/15/yuque/面试官最爱的volatile关键字 - 掘金/" data-id="cjxbc1anr000i769p5l7m1rkr" class="article-share-link">Share</a>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
       
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
   
-</article>
+  
+  
+  </article>
 
+
+    
+      
 
   
-    <article id="post-yuque/实例分析MySQL下的四种事务隔离级别 - 后端 - 掘金" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/15/yuque/实例分析MySQL下的四种事务隔离级别 - 后端 - 掘金/" class="article-date">
-  <time datetime="2019-03-15T01:37:09.000Z" itemprop="datePublished">2019-03-15</time>
-</a>
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/15/yuque/实例分析MySQL下的四种事务隔离级别 - 后端 - 掘金/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="临安的风">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="My Blogs">
+    </span>
+
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+      <header class="post-header">
+
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/15/yuque/实例分析MySQL下的四种事务隔离级别 - 后端 - 掘金/">实例分析MySQL下的四种事务隔离级别 - 后端 - 掘金</a>
-    </h1>
-  
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/15/yuque/实例分析MySQL下的四种事务隔离级别 - 后端 - 掘金/" itemprop="url">实例分析MySQL下的四种事务隔离级别 - 后端 - 掘金</a></h1>
+        
 
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-15T09:37:09+08:00">
+                2019-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>数据库事务有四种隔离级别：</p>
+      
+
+      
+        
+          
+            <p>数据库事务有四种隔离级别：</p>
 <ul>
 <li>未提交读(Read Uncommitted)：允许脏读，也就是可能读取到其他会话中未提交事务修改的数据。</li>
 <li>提交读(Read Committed)：只能读取到已经提交的数据，Oracle等多数数据库默认都是该级别。</li>
@@ -944,42 +1850,125 @@
 <p>本文同步发于我的<a href="https://link.juejin.im/?target=https%3A%2F%2Fwww.ziwenxie.site%2F2017%2F08%2F08%2Fmysql-transaction-isolation%2F" target="_blank" rel="noopener">个人博客</a>，转载请声明博客出处 <img src="https://gw.alipayobjects.com/os/lib/twemoji/11.2.0/2/svg/1f603.svg#align=left&display=inline&height=18&originHeight=150&originWidth=150&status=done&width=18" alt></p>
 </blockquote>
 
+          
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/15/yuque/实例分析MySQL下的四种事务隔离级别 - 后端 - 掘金/" data-id="cjxbc1anm000d769psj051so9" class="article-share-link">Share</a>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
       
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
   
-</article>
+  
+  
+  </article>
 
+
+    
+      
 
   
-    <article id="post-yuque/MySQL使用可重复读作为默认隔离级别的原因 - vinchen - 博客园" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/02/27/yuque/MySQL使用可重复读作为默认隔离级别的原因 - vinchen - 博客园/" class="article-date">
-  <time datetime="2019-02-27T06:05:18.000Z" itemprop="datePublished">2019-02-27</time>
-</a>
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/27/yuque/MySQL使用可重复读作为默认隔离级别的原因 - vinchen - 博客园/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="临安的风">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="My Blogs">
+    </span>
+
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+      <header class="post-header">
+
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/27/yuque/MySQL使用可重复读作为默认隔离级别的原因 - vinchen - 博客园/">MySQL使用可重复读作为默认隔离级别的原因 - vinchen - 博客园</a>
-    </h1>
-  
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/27/yuque/MySQL使用可重复读作为默认隔离级别的原因 - vinchen - 博客园/" itemprop="url">MySQL使用可重复读作为默认隔离级别的原因 - vinchen - 博客园</a></h1>
+        
 
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-27T14:05:18+08:00">
+                2019-02-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>一般的DBMS系统，默认都会使用读提交（Read-Comitted，RC）作为默认隔离级别，如Oracle、SQL Server等，而MySQL却使用可重复读（Read-Repeatable，RR）。要知道，越高的隔离级别，能解决的数据一致性问题越多，理论上性能损耗更大，可并发性越低。隔离级别依次为</p>
+      
+
+      
+        
+          
+            <p>一般的DBMS系统，默认都会使用读提交（Read-Comitted，RC）作为默认隔离级别，如Oracle、SQL Server等，而MySQL却使用可重复读（Read-Repeatable，RR）。要知道，越高的隔离级别，能解决的数据一致性问题越多，理论上性能损耗更大，可并发性越低。隔离级别依次为</p>
 <p>SERIALIZABLE &gt; RR &gt; RC &gt; Read-Uncommited</p>
 <p>在SQL标准中，前三种隔离级别分别解决了幻象读、不可重复读和脏读的问题。那么，为什么MySQL使用可重复读作为默认隔离级别呢？</p>
 <p>Binlog是MySQL的逻辑操作日志，广泛应用于复制和恢复。MySQL 5.1以前，Statement是Binlog的默认格式，即依次记录系统接受的SQL请求；5.1及以后，MySQL提供了Row和Mixed两个Binlog格式。</p>
@@ -1200,42 +2189,125 @@
 <p><a href="http://dev.mysql.com/doc/refman/5.5/en/innodb-parameters.html#sysvar_innodb_locks_unsafe_for_binlog" target="_blank" rel="noopener">http://dev.mysql.com/doc/refman/5.5/en/innodb-parameters.html#sysvar_innodb_locks_unsafe_for_binlog</a></p>
 <p><a href="http://blog.bitfly.cn/post/mysql-innodb-phantom-read/" target="_blank" rel="noopener">http://blog.bitfly.cn/post/mysql-innodb-phantom-read/</a></p>
 
+          
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/27/yuque/MySQL使用可重复读作为默认隔离级别的原因 - vinchen - 博客园/" data-id="cjxbc1anl000b769pcxlh0b5e" class="article-share-link">Share</a>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
       
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
   
-</article>
+  
+  
+  </article>
 
+
+    
+      
 
   
-    <article id="post-yuque/常用的sql语句" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/02/25/yuque/常用的sql语句/" class="article-date">
-  <time datetime="2019-02-25T12:16:55.000Z" itemprop="datePublished">2019-02-25</time>
-</a>
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/25/yuque/常用的sql语句/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="临安的风">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="My Blogs">
+    </span>
+
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+      <header class="post-header">
+
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/25/yuque/常用的sql语句/">常用的sql语句</a>
-    </h1>
-  
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/25/yuque/常用的sql语句/" itemprop="url">常用的sql语句</a></h1>
+        
 
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-25T20:16:55+08:00">
+                2019-02-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p><a name="5042afb6"></a></p>
+      
+
+      
+        
+          
+            <p><a name="5042afb6"></a></p>
 <h3 id="交换两列的值"><a href="#交换两列的值" class="headerlink" title="交换两列的值"></a>交换两列的值</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> models_mapping <span class="keyword">as</span> a, models_mapping <span class="keyword">as</span> b </span><br><span class="line"><span class="keyword">set</span> a.souche_model_code=b.third_model_code, a.third_model_code=b.souche_model_code</span><br><span class="line"><span class="keyword">where</span> a.id=b.id <span class="keyword">and</span> a.src_domain=<span class="string">'iautos.cn'</span> <span class="keyword">and</span> a.domain=<span class="string">'souche.com'</span>;</span><br></pre></td></tr></table></figure>
 
 <p><a name="c54edfc1"></a></p>
@@ -1260,112 +2332,635 @@
 <h3 id="修改列字段"><a href="#修改列字段" class="headerlink" title="修改列字段"></a>修改列字段</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> model_parameter <span class="keyword">modify</span> <span class="keyword">column</span> <span class="string">`max_power`</span> <span class="built_in">decimal</span>(<span class="number">6</span>,<span class="number">2</span>) <span class="keyword">unsigned</span> <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'最大功率(kW)'</span>;</span><br></pre></td></tr></table></figure>
 
 
+          
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/25/yuque/常用的sql语句/" data-id="cjxbc1ann000e769p41yxe2ku" class="article-share-link">Share</a>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
       
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
   
-</article>
+  
+  
+  </article>
 
+
+    
+  </section>
 
   
-
-
-  <nav id="page-nav">
-    
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
-</section>
+
+
+          </div>
+          
+
+
+          
+
+        </div>
         
-          <aside id="sidebar">
+          
   
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li></ul>
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
     </div>
   </div>
 
-
-  
+  <aside id="sidebar" class="sidebar">
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2019/06/25/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2019/06/20/yuque/30个mysql千万级大数据SQL查询优化技巧/">30个mysql千万级大数据SQL查询优化技巧</a>
-          </li>
-        
-          <li>
-            <a href="/2019/05/21/yuque/MySQL 性能优化神器 Explain 使用分析/">MySQL 性能优化神器 Explain 使用分析</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/18/yuque/上线之前/">上线之前</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/25/yuque/Java动态追踪技术探究 - 美团技术团队/">Java动态追踪技术探究 - 美团技术团队</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
+    <div class="sidebar-inner">
 
-  
-</aside>
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">临安的风</p>
+              <p class="site-description motion-element" itemprop="description">网络资源搬运工 Java Spring 面试 数据库 算法 zk dubbo 分布式 redis React Flutter anything</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
         
       </div>
-      <footer id="footer">
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">都来自于互联网</span>
+
   
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 John Doe<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
-
-
+    
 
   </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
 </body>
 </html>
