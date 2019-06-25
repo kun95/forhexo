@@ -9,7 +9,7 @@ before_install:
 install:
 - npm install
 script:
-- yuque-hexo sync && hexo g
+- hexo clean & yuque-hexo sync && hexo g
 after_success:
   - cd ./public
   - git init
