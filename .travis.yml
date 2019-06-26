@@ -9,8 +9,13 @@ before_install:
 install:
 - npm install
 script:
-- yuque-hexo sync && hexo d
-
+- yuque-hexo sync && hexo g
+after_success:
+  - cd ./public
+  - cat index.html
+  - git init
+  - git commit -a -m "通过travis自动构建"
+  - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:master
 
 env:
  global:
