@@ -13,11 +13,10 @@ script:
 after_success:
   - cd ./public
   - git init
-  - git config user.name "${U_NAME}"
-  - git config user.email "${U_EMAIL}"
   - git add .
   - git commit -m "generate static resources, triggerd by travis ci"
   - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:master
+
 env:
  global:
    # 我将其添加到了travis-ci的环境变量中
